@@ -1,6 +1,6 @@
 [package]
 name = "drm-rs"
-version = "0.0.1"
+version = "0.0.2"
 authors = ["Alberto Simón <lugaidster@gmail.com>"]
 description = "libdrm bindings for Rust"
 repository = "https://github.com/asimonf/libdrm-rs"
