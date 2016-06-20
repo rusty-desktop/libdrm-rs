@@ -288,8 +288,8 @@ pub struct drmVBlank {
 }
 pub type drmVBlankPtr = *mut drmVBlank;
 
-#[cfg(target_pointer_width = "32")]
 impl drmVBlank {
+    #[cfg(target_pointer_width = "32")]
     fn request (&self) -> drmVBlankReq {
         let req = drmVBlankReq {
             request_type: drmVBlankSeqType::from_u32(NativeEndian::read_u32(&self.data[0..4])),
@@ -300,6 +300,7 @@ impl drmVBlank {
         req
     }
 
+    #[cfg(target_pointer_width = "32")]
     fn reply (&self) -> drmVBlankReply {
         let reply = drmVBlankReply {
             reply_type: drmVBlankSeqType::from_u32(NativeEndian::read_u32(&self.data[0..4])),
@@ -310,10 +311,8 @@ impl drmVBlank {
 
         reply
     }
-}
 
-#[cfg(target_pointer_width = "64")]
-impl drmVBlank {
+    #[cfg(target_pointer_width = "64")]
     fn request (&self) -> drmVBlankReq {
         let req = drmVBlankReq {
             request_type: drmVBlankSeqType::from_u32(NativeEndian::read_u32(&self.data[0..4])),
@@ -324,6 +323,7 @@ impl drmVBlank {
         req
     }
 
+    #[cfg(target_pointer_width = "64")]
     fn reply (&self) -> drmVBlankReply {
         let reply = drmVBlankReply {
             reply_type: drmVBlankSeqType::from_u32(NativeEndian::read_u32(&self.data[0..4])),

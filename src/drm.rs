@@ -460,7 +460,7 @@ impl drm_vblank_seq_type {
         }
     }
 }
-const _DRM_VBLANK_HIGH_CRTC_SHIFT: c_int = 1;
+pub const _DRM_VBLANK_HIGH_CRTC_SHIFT: c_int = 1;
 
 #[repr(C)]
 pub struct drm_wait_vblank_request {
@@ -487,8 +487,8 @@ pub struct drm_wait_vblank {
 	data: [u8; 24]
 }
 
-#[cfg(target_pointer_width = "32")]
 impl drm_wait_vblank {
+    #[cfg(target_pointer_width = "32")]
     fn request (&self) -> drm_wait_vblank_request {
         let req = drm_wait_vblank_request {
             request_type: drm_vblank_seq_type::from_u32(NativeEndian::read_u32(&self.data[0..4])),
@@ -499,6 +499,7 @@ impl drm_wait_vblank {
         req
     }
 
+    #[cfg(target_pointer_width = "32")]
     fn reply (&self) -> drm_wait_vblank_reply {
         let reply = drm_wait_vblank_reply {
             reply_type: drm_vblank_seq_type::from_u32(NativeEndian::read_u32(&self.data[0..4])),
@@ -509,10 +510,8 @@ impl drm_wait_vblank {
 
         reply
     }
-}
 
-#[cfg(target_pointer_width = "64")]
-impl drm_wait_vblank {
+    #[cfg(target_pointer_width = "64")]
     fn request (&self) -> drm_wait_vblank_request {
         let req = drm_wait_vblank_request {
             request_type: drm_vblank_seq_type::from_u32(NativeEndian::read_u32(&self.data[0..4])),
@@ -523,6 +522,7 @@ impl drm_wait_vblank {
         req
     }
 
+    #[cfg(target_pointer_width = "64")]
     fn reply (&self) -> drm_wait_vblank_reply {
         let reply = drm_wait_vblank_reply {
             reply_type: drm_vblank_seq_type::from_u32(NativeEndian::read_u32(&self.data[0..4])),
@@ -535,8 +535,8 @@ impl drm_wait_vblank {
     }
 }
 
-const _DRM_PRE_MODESET: c_int = 1;
-const _DRM_POST_MODESET: c_int = 2;
+pub const _DRM_PRE_MODESET: c_int = 1;
+pub const _DRM_POST_MODESET: c_int = 2;
 
 /**
  * DRM_IOCTL_MODESET_CTL ioctl argument type
@@ -655,15 +655,15 @@ pub struct drm_gem_open {
 	size: u64
 }
 
-const DRM_CAP_DUMB_BUFFER: c_int = 0x1;
-const DRM_CAP_VBLANK_HIGH_CRTC: c_int = 0x2;
-const DRM_CAP_DUMB_PREFERRED_DEPTH: c_int = 0x3;
-const DRM_CAP_DUMB_PREFER_SHADOW: c_int = 0x4;
-const DRM_CAP_PRIME: c_int = 0x5;
-const  DRM_PRIME_CAP_IMPORT: c_int = 0x1;
-const  DRM_PRIME_CAP_EXPORT: c_int = 0x2;
-const DRM_CAP_TIMESTAMP_MONOTONIC: c_int = 0x6;
-const DRM_CAP_ASYNC_PAGE_FLIP: c_int = 0x7;
+pub const DRM_CAP_DUMB_BUFFER: c_int = 0x1;
+pub const DRM_CAP_VBLANK_HIGH_CRTC: c_int = 0x2;
+pub const DRM_CAP_DUMB_PREFERRED_DEPTH: c_int = 0x3;
+pub const DRM_CAP_DUMB_PREFER_SHADOW: c_int = 0x4;
+pub const DRM_CAP_PRIME: c_int = 0x5;
+pub const  DRM_PRIME_CAP_IMPORT: c_int = 0x1;
+pub const  DRM_PRIME_CAP_EXPORT: c_int = 0x2;
+pub const DRM_CAP_TIMESTAMP_MONOTONIC: c_int = 0x6;
+pub const DRM_CAP_ASYNC_PAGE_FLIP: c_int = 0x7;
 /*
  * The CURSOR_WIDTH and CURSOR_HEIGHT capabilities return a valid widthxheight
  * combination for the hardware cursor. The intention is that a hardware
@@ -673,9 +673,9 @@ const DRM_CAP_ASYNC_PAGE_FLIP: c_int = 0x7;
  * drivers are free to attach another meaning on top, eg. i915 returns the
  * maximum plane size.
  */
-const DRM_CAP_CURSOR_WIDTH: c_int = 0x8;
-const DRM_CAP_CURSOR_HEIGHT: c_int = 0x9;
-const DRM_CAP_ADDFB2_MODIFIERS: c_int = 0x10;
+pub const DRM_CAP_CURSOR_WIDTH: c_int = 0x8;
+pub const DRM_CAP_CURSOR_HEIGHT: c_int = 0x9;
+pub const DRM_CAP_ADDFB2_MODIFIERS: c_int = 0x10;
 
 /** DRM_IOCTL_GET_CAP ioctl argument type */
 #[repr(C)]
@@ -715,8 +715,8 @@ pub struct drm_set_client_cap {
 	value: u64
 }
 
-const DRM_RDWR: c_int = O_RDWR;
-const DRM_CLOEXEC: c_int = O_CLOEXEC;
+pub const DRM_RDWR: c_int = O_RDWR;
+// const DRM_CLOEXEC: c_int = O_CLOEXEC;
 #[repr(C)]
 pub struct drm_prime_handle {
 	handle: u32,
@@ -738,8 +738,8 @@ pub struct drm_prime_handle {
  * \sa drmCommandNone(), drmCommandRead(), drmCommandWrite(), and
  * drmCommandReadWrite().
  */
-const DRM_COMMAND_BASE: c_int = 0x40;
-const DRM_COMMAND_END: c_int = 0xA0;
+pub const DRM_COMMAND_BASE: c_int = 0x40;
+pub const DRM_COMMAND_END: c_int = 0xA0;
 
 /**
  * Header for events written back to userspace on the drm fd.  The
