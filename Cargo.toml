@@ -2,6 +2,9 @@
 name = "drm-rs"
 version = "0.0.1"
 authors = ["Alberto Simón <lugaidster@gmail.com>"]
+description = "libdrm bindings for Rust"
+repository = "https://github.com/asimonf/libdrm-rs"
+license = "GPL-3.0"
 
 [dependencies]
 libc = "0.2.12"
