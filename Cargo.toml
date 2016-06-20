@@ -1,9 +1,8 @@
 [package]
 name = "drm-rs"
-version = "0.1.0"
+version = "0.0.1"
 authors = ["Alberto Simón <lugaidster@gmail.com>"]
 
 [dependencies]
 libc = "0.2.12"
 byteorder = "0.5.3"
-va_list = "0.0.3"
