@@ -528,6 +528,9 @@ pub const DRM_BUS_PCI : u8 = 0;
 #[link(name = "drm")]
 #[allow(dead_code)]
 extern {
+    fn drmIoctl(fc: c_int, request: c_ulong, arg: *mut c_void) -> c_int;
+    fn drmGetHashTable() -> *mut c_void;
+    fn drmGetEntry(fd: c_int) -> *mut drmHashEntry;
     /* General user-level programmer's API: unprivileged */
     pub fn drmAvailable() -> c_int;
     pub fn drmOpen(name: *const c_char, busid: *const c_char) -> c_int;

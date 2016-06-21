@@ -1,8 +1,8 @@
 [package]
 name = "drm-rs"
-version = "0.0.3"
-authors = ["Alberto Simón <lugaidster@gmail.com>"]
-description = "libdrm bindings for Rust"
+version = "0.0.4"
+authors = ["Alberto Simón <alberto@simon.ph>"]
+description = "libdrm bindings to be able to use Kernel Mode Setting on Linux"
 repository = "https://github.com/asimonf/libdrm-rs"
 license = "GPL-3.0"
 keywords = ["libdrm", "kms", "linux", "unsafe", "drm"]
