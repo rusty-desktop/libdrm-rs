@@ -52,6 +52,10 @@ pub struct drm_clip_rect {
 	x2: c_ushort,
 	y2: c_ushort
 }
+impl ::std::default::Default for drm_clip_rect {
+    fn default() -> drm_clip_rect { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * Drawable information.
@@ -61,6 +65,10 @@ pub struct drm_drawable_info {
 	num_rects: c_uint,
 	rects: *mut drm_clip_rect
 }
+impl ::std::default::Default for drm_drawable_info {
+    fn default() -> drm_drawable_info { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * Texture region,
@@ -73,6 +81,10 @@ pub struct drm_tex_region {
 	padding: c_uchar,
 	age: c_uint
 }
+impl ::std::default::Default for drm_tex_region {
+    fn default() -> drm_tex_region { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * Hardware lock.
@@ -86,6 +98,10 @@ pub struct drm_hw_lock {
 	lock: VolatileCell<c_uint>,		/**< lock variable */
 	padding: [c_char; 60]
 }
+impl ::std::default::Default for drm_hw_lock {
+    fn default() -> drm_hw_lock { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * DRM_IOCTL_VERSION ioctl argument type.
@@ -104,6 +120,10 @@ pub struct drm_version {
 	desc_len: KernelSizeT,	  /**< Length of desc buffer */
 	desc: *mut c_char
 }
+impl ::std::default::Default for drm_version {
+    fn default() -> drm_version { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * DRM_IOCTL_GET_UNIQUE ioctl argument type.
@@ -115,17 +135,29 @@ pub struct drm_unique {
 	unique_len: KernelSizeT,	  /**< Length of unique */
 	unique: *mut c_char
 }
+impl ::std::default::Default for drm_unique {
+    fn default() -> drm_unique { unsafe { ::std::mem::zeroed() } }
+}
+
 
 #[repr(C)]
 pub struct drm_list {
 	count: c_int,		  /**< Length of user-space structures */
 	version: *mut drm_version
 }
+impl ::std::default::Default for drm_list {
+    fn default() -> drm_list { unsafe { ::std::mem::zeroed() } }
+}
+
 
 #[repr(C)]
 pub struct drm_block {
 	unused: c_int
 }
+impl ::std::default::Default for drm_block {
+    fn default() -> drm_block { unsafe { ::std::mem::zeroed() } }
+}
+
 
 #[repr(C)]
 pub enum drm_control_func {
@@ -145,6 +177,10 @@ pub struct drm_control {
 	func: drm_control_func,
 	irq: c_int
 }
+impl ::std::default::Default for drm_control {
+    fn default() -> drm_control { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * Type of memory to map.
@@ -179,6 +215,10 @@ pub struct drm_ctx_priv_map {
 	ctx_id: c_uint,	 /**< Context requesting private mapping */
 	handle: *mut c_void
 }
+impl ::std::default::Default for drm_ctx_priv_map {
+    fn default() -> drm_ctx_priv_map { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * DRM_IOCTL_GET_MAP, DRM_IOCTL_ADD_MAP and DRM_IOCTL_RM_MAP ioctls
@@ -196,6 +236,10 @@ pub struct drm_map {
 				 /**< Kernel-space: kernel-virtual address */
 	mtrr: c_int
 }
+impl ::std::default::Default for drm_map {
+    fn default() -> drm_map { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * DRM_IOCTL_GET_CLIENT ioctl argument type.
@@ -209,6 +253,10 @@ pub struct drm_client {
 	magic: c_ulong,	/**< Magic */
 	iocs: c_ulong
 }
+impl ::std::default::Default for drm_client {
+    fn default() -> drm_client { unsafe { ::std::mem::zeroed() } }
+}
+
 
 #[repr(C)]
 pub enum drm_stat_type {
@@ -235,6 +283,10 @@ pub struct drm_stats_data {
     value: c_ulong,
     stat_type: drm_stat_type
 }
+impl ::std::default::Default for drm_stats_data {
+    fn default() -> drm_stats_data { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * DRM_IOCTL_GET_STATS ioctl argument type.
@@ -244,6 +296,10 @@ pub struct drm_stats {
 	count: c_ulong,
 	data: [drm_stats_data; 15]
 }
+impl ::std::default::Default for drm_stats {
+    fn default() -> drm_stats { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * Hardware locking flags.
@@ -271,6 +327,10 @@ pub struct drm_lock {
 	context: c_int,
 	flags: drm_lock_flags
 }
+impl ::std::default::Default for drm_lock {
+    fn default() -> drm_lock { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * DMA flags
@@ -325,6 +385,10 @@ pub struct drm_buf_desc {
 	flags: drm_buf_desc_flags,
 	agp_start: c_ulong
 }
+impl ::std::default::Default for drm_buf_desc {
+    fn default() -> drm_buf_desc { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * DRM_IOCTL_INFO_BUFS ioctl argument type.
@@ -334,6 +398,10 @@ pub struct drm_buf_info {
 	count: c_int,		/**< Entries in list */
 	list: *mut drm_buf_desc
 }
+impl ::std::default::Default for drm_buf_info {
+    fn default() -> drm_buf_info { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * DRM_IOCTL_FREE_BUFS ioctl argument type.
@@ -343,6 +411,10 @@ pub struct drm_buf_free {
 	count: c_int,
 	list: *mut c_int
 }
+impl ::std::default::Default for drm_buf_free {
+    fn default() -> drm_buf_free { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * Buffer information
@@ -356,6 +428,10 @@ pub struct drm_buf_pub {
 	used: c_int,		       /**< Amount of buffer in use (for DMA) */
 	address: *mut c_void
 }
+impl ::std::default::Default for drm_buf_pub {
+    fn default() -> drm_buf_pub { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * DRM_IOCTL_MAP_BUFS ioctl argument type.
@@ -366,6 +442,10 @@ pub struct drm_buf_map {
 	virtual_address: *mut c_void,		/**< Mmap'd area in user-virtual */
 	list: *mut drm_buf_pub
 }
+impl ::std::default::Default for drm_buf_map {
+    fn default() -> drm_buf_map { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * DRM_IOCTL_DMA ioctl argument type.
@@ -387,6 +467,10 @@ pub struct drm_dma {
 	request_sizes: *mut c_int,
 	granted_count: c_int
 }
+impl ::std::default::Default for drm_dma {
+    fn default() -> drm_dma { unsafe { ::std::mem::zeroed() } }
+}
+
 
 #[repr(C)]
 pub enum drm_ctx_flags {
@@ -404,6 +488,10 @@ pub struct drm_ctx {
 	handle: drm_context_t,
 	flags: drm_ctx_flags
 }
+impl ::std::default::Default for drm_ctx {
+    fn default() -> drm_ctx { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * DRM_IOCTL_RES_CTX ioctl argument type.
@@ -413,6 +501,10 @@ pub struct drm_ctx_res {
 	count: c_int,
 	contexts: *mut drm_ctx
 }
+impl ::std::default::Default for drm_ctx_res {
+    fn default() -> drm_ctx_res { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * DRM_IOCTL_ADD_DRAW and DRM_IOCTL_RM_DRAW ioctl argument type.
@@ -436,6 +528,10 @@ pub struct drm_update_draw {
 	num: c_uint,
 	data: c_ulonglong
 }
+impl ::std::default::Default for drm_update_draw {
+    fn default() -> drm_update_draw { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * DRM_IOCTL_GET_MAGIC and DRM_IOCTL_AUTH_MAGIC ioctl argument type.
@@ -444,6 +540,10 @@ pub struct drm_update_draw {
 pub struct drm_auth {
 	magic: drm_magic_t
 }
+impl ::std::default::Default for drm_auth {
+    fn default() -> drm_auth { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * DRM_IOCTL_IRQ_BUSID ioctl argument type.
@@ -457,6 +557,10 @@ pub struct drm_irq_busid {
 	devnum: c_int,	/**< device number */
 	funcnum: c_int
 }
+impl ::std::default::Default for drm_irq_busid {
+    fn default() -> drm_irq_busid { unsafe { ::std::mem::zeroed() } }
+}
+
 
 #[repr(C)]
 pub enum drm_vblank_seq_type {
@@ -493,6 +597,10 @@ pub struct drm_wait_vblank_request {
 	sequence: c_uint,
 	signal: c_ulong,
 }
+impl ::std::default::Default for drm_wait_vblank_request {
+    fn default() -> drm_wait_vblank_request { unsafe { ::std::mem::zeroed() } }
+}
+
 
 #[repr(C)]
 pub struct drm_wait_vblank_reply {
@@ -501,6 +609,10 @@ pub struct drm_wait_vblank_reply {
 	tval_sec: c_long,
 	tval_usec: c_long
 }
+impl ::std::default::Default for drm_wait_vblank_reply {
+    fn default() -> drm_wait_vblank_reply { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * DRM_IOCTL_WAIT_VBLANK ioctl argument type.
@@ -511,6 +623,10 @@ pub struct drm_wait_vblank_reply {
 pub struct drm_wait_vblank {
 	data: [u8; 24]
 }
+impl ::std::default::Default for drm_wait_vblank {
+    fn default() -> drm_wait_vblank { unsafe { ::std::mem::zeroed() } }
+}
+
 
 impl drm_wait_vblank {
     #[cfg(target_pointer_width = "32")]
@@ -573,6 +689,10 @@ pub struct drm_modeset_ctl {
     crtc: u32,
 	cmd: u32
 }
+impl ::std::default::Default for drm_modeset_ctl {
+    fn default() -> drm_modeset_ctl { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * DRM_IOCTL_AGP_ENABLE ioctl argument type.
@@ -583,6 +703,10 @@ pub struct drm_modeset_ctl {
 pub struct drm_agp_mode {
 	mode: c_ulong
 }
+impl ::std::default::Default for drm_agp_mode {
+    fn default() -> drm_agp_mode { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * DRM_IOCTL_AGP_ALLOC and DRM_IOCTL_AGP_FREE ioctls argument type.
@@ -596,6 +720,10 @@ pub struct drm_agp_buffer {
 	buffer_type: c_ulong,	/**< Type of memory to allocate */
 	physical: c_ulong
 }
+impl ::std::default::Default for drm_agp_buffer {
+    fn default() -> drm_agp_buffer { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * DRM_IOCTL_AGP_BIND and DRM_IOCTL_AGP_UNBIND ioctls argument type.
@@ -607,6 +735,10 @@ pub struct drm_agp_binding {
 	handle: c_ulong,	/**< From drm_agp_buffer */
 	offset: c_ulong
 }
+impl ::std::default::Default for drm_agp_binding {
+    fn default() -> drm_agp_binding { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * DRM_IOCTL_AGP_INFO ioctl argument type.
@@ -629,6 +761,10 @@ pub struct drm_agp_info {
 	id_vendor: c_ushort,
 	id_device: c_ushort
 }
+impl ::std::default::Default for drm_agp_info {
+    fn default() -> drm_agp_info { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * DRM_IOCTL_SG_ALLOC ioctl argument type.
@@ -638,6 +774,10 @@ pub struct drm_scatter_gather {
 	size: c_ulong,	/**< In bytes -- will round to page boundary */
 	handle: c_ulong
 }
+impl ::std::default::Default for drm_scatter_gather {
+    fn default() -> drm_scatter_gather { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * DRM_IOCTL_SET_VERSION ioctl argument type.
@@ -649,6 +789,10 @@ pub struct drm_set_version {
 	drm_dd_major: c_int,
 	drm_dd_minor: c_int
 }
+impl ::std::default::Default for drm_set_version {
+    fn default() -> drm_set_version { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /** DRM_IOCTL_GEM_CLOSE ioctl argument type */
 struct drm_gem_close {
@@ -666,6 +810,10 @@ pub struct drm_gem_flink {
 	/** Returned global name */
 	name: u32
 }
+impl ::std::default::Default for drm_gem_flink {
+    fn default() -> drm_gem_flink { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /** DRM_IOCTL_GEM_OPEN ioctl argument type */
 #[repr(C)]
@@ -679,6 +827,10 @@ pub struct drm_gem_open {
 	/** Returned size of the object */
 	size: u64
 }
+impl ::std::default::Default for drm_gem_open {
+    fn default() -> drm_gem_open { unsafe { ::std::mem::zeroed() } }
+}
+
 
 pub const DRM_CAP_DUMB_BUFFER: c_int = 0x1;
 pub const DRM_CAP_VBLANK_HIGH_CRTC: c_int = 0x2;
@@ -708,6 +860,10 @@ pub struct drm_get_cap {
 	capability: u64,
 	value: u64
 }
+impl ::std::default::Default for drm_get_cap {
+    fn default() -> drm_get_cap { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /**
  * DRM_CLIENT_CAP_STEREO_3D
@@ -739,6 +895,10 @@ pub struct drm_set_client_cap {
 	capability: u64,
 	value: u64
 }
+impl ::std::default::Default for drm_set_client_cap {
+    fn default() -> drm_set_client_cap { unsafe { ::std::mem::zeroed() } }
+}
+
 
 pub const DRM_RDWR: c_int = O_RDWR;
 // const DRM_CLOEXEC: c_int = O_CLOEXEC;
@@ -752,6 +912,10 @@ pub struct drm_prime_handle {
 	/** Returned dmabuf file descriptor */
 	fd: i32
 }
+impl ::std::default::Default for drm_prime_handle {
+    fn default() -> drm_prime_handle { unsafe { ::std::mem::zeroed() } }
+}
+
 
 // #include "drm_mode.h"
 
@@ -783,6 +947,10 @@ pub struct drm_event {
 	event_type: u32,
 	length: u32
 }
+impl ::std::default::Default for drm_event {
+    fn default() -> drm_event { unsafe { ::std::mem::zeroed() } }
+}
+
 
 pub const DRM_EVENT_VBLANK: c_int = 0x01;
 pub const DRM_EVENT_FLIP_COMPLETE: c_int = 0x02;
@@ -796,6 +964,10 @@ pub struct drm_event_vblank {
 	sequence: u32,
 	reserved: u32
 }
+impl ::std::default::Default for drm_event_vblank {
+    fn default() -> drm_event_vblank { unsafe { ::std::mem::zeroed() } }
+}
+
 
 /* typedef area */
 type drm_clip_rect_t = drm_clip_rect;

@@ -1,6 +1,7 @@
 use std::ptr;
 use libc::*;
 
+#[repr(C)]
 pub struct VolatileCell<T> {
      x: T
 }

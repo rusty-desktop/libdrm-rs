@@ -121,6 +121,10 @@ pub struct drmModeRes {
     min_height: uint32_t,
     max_height: uint32_t
 }
+impl ::std::default::Default for drmModeRes {
+    fn default() -> drmModeRes { unsafe { ::std::mem::zeroed() } }
+}
+
 pub type drmModeResPtr = *mut drmModeRes;
 
 #[repr(C)]
@@ -141,6 +145,10 @@ pub struct drmModeModeInfo {
 	mode_type: uint32_t,
 	name: [c_char; DRM_DISPLAY_MODE_LEN as usize]
 }
+impl ::std::default::Default for drmModeModeInfo {
+    fn default() -> drmModeModeInfo { unsafe { ::std::mem::zeroed() } }
+}
+
 pub type drmModeModeInfoPtr = *mut drmModeModeInfo;
 
 #[repr(C)]
@@ -154,6 +162,10 @@ pub struct drmModeFB {
 	/* driver specific handle */
 	handle: uint32_t
 }
+impl ::std::default::Default for drmModeFB {
+    fn default() -> drmModeFB { unsafe { ::std::mem::zeroed() } }
+}
+
 pub type drmModeFBPtr = *mut drmModeFB;
 
 pub type drmModeClip = drm_clip_rect;
@@ -165,6 +177,10 @@ pub struct drmModePropertyBlobRes {
 	length: uint32_t,
 	data: *mut c_void
 }
+impl ::std::default::Default for drmModePropertyBlobRes {
+    fn default() -> drmModePropertyBlobRes { unsafe { ::std::mem::zeroed() } }
+}
+
 pub type drmModePropertyBlobPtr = *mut drmModePropertyBlobRes;
 
 #[repr(C)]
@@ -179,6 +195,10 @@ pub struct drmModePropertyRes {
 	count_blobs: c_int,
 	blob_ids: *mut uint32_t
 }
+impl ::std::default::Default for drmModePropertyRes {
+    fn default() -> drmModePropertyRes { unsafe { ::std::mem::zeroed() } }
+}
+
 pub type drmModePropertyPtr = *mut drmModePropertyRes;
 
 // static __inline int drm_property_type_is(drmModePropertyPtr property,
@@ -203,6 +223,10 @@ pub struct drmModeCrtc {
 	mode: drmModeModeInfo,
 	gamma_size: c_int
 }
+impl ::std::default::Default for drmModeCrtc {
+    fn default() -> drmModeCrtc { unsafe { ::std::mem::zeroed() } }
+}
+
 pub type drmModeCrtcPtr = *mut drmModeCrtc;
 
 #[repr(C)]
@@ -213,6 +237,10 @@ pub struct drmModeEncoder {
 	possible_crtcs: uint32_t,
 	possible_clones: uint32_t
 }
+impl ::std::default::Default for drmModeEncoder {
+    fn default() -> drmModeEncoder { unsafe { ::std::mem::zeroed() } }
+}
+
 pub type drmModeEncoderPtr = *mut drmModeEncoder;
 
 #[repr(C)]
@@ -253,6 +281,10 @@ pub struct drmModeConnector {
 	count_encoders: c_int,
 	encoders: *mut uint32_t
 }
+impl ::std::default::Default for drmModeConnector {
+    fn default() -> drmModeConnector { unsafe { ::std::mem::zeroed() } }
+}
+
 pub type drmModeConnectorPtr = *mut drmModeConnector;
 
 pub const DRM_PLANE_TYPE_OVERLAY: c_int = 0;
@@ -265,6 +297,10 @@ pub struct drmModeObjectProperties {
 	props: *mut uint32_t,
 	prop_values: *mut uint64_t
 }
+impl ::std::default::Default for drmModeObjectProperties {
+    fn default() -> drmModeObjectProperties { unsafe { ::std::mem::zeroed() } }
+}
+
 pub type drmModeObjectPropertiesPtr = *mut drmModeObjectProperties;
 
 #[repr(C)]
@@ -284,6 +320,10 @@ pub struct drmModePlane {
 	possible_crtcs: uint32_t,
 	gamma_size: uint32_t
 }
+impl ::std::default::Default for drmModePlane {
+    fn default() -> drmModePlane { unsafe { ::std::mem::zeroed() } }
+}
+
 pub type drmModePlanePtr = *mut drmModePlane;
 
 #[repr(C)]
@@ -291,6 +331,10 @@ pub struct drmModePlaneRes {
 	count_planes: uint32_t,
 	planes: *mut uint32_t
 }
+impl ::std::default::Default for drmModePlaneRes {
+    fn default() -> drmModePlaneRes { unsafe { ::std::mem::zeroed() } }
+}
+
 pub type drmModePlaneResPtr = *mut drmModePlaneRes;
 
 #[repr(C)]
@@ -299,6 +343,10 @@ pub struct _drmModeAtomicReqItem {
 	property_id: uint32_t,
 	value: uint64_t
 }
+impl ::std::default::Default for _drmModeAtomicReqItem {
+    fn default() -> _drmModeAtomicReqItem { unsafe { ::std::mem::zeroed() } }
+}
+
 
 #[repr(C)]
 pub struct _drmModeAtomicReq {
@@ -306,6 +354,10 @@ pub struct _drmModeAtomicReq {
 	size_items: uint32_t,
 	items: _drmModeAtomicReqItem
 }
+impl ::std::default::Default for _drmModeAtomicReq {
+    fn default() -> _drmModeAtomicReq { unsafe { ::std::mem::zeroed() } }
+}
+
 
 pub type drmModeAtomicReq = _drmModeAtomicReq;
 pub type drmModeAtomicReqPtr = *mut drmModeAtomicReq;

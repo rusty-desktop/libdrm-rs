@@ -1,10 +1,12 @@
 [package]
 name = "drm-rs"
-version = "0.0.2"
+version = "0.0.3"
 authors = ["Alberto Simón <lugaidster@gmail.com>"]
 description = "libdrm bindings for Rust"
 repository = "https://github.com/asimonf/libdrm-rs"
 license = "GPL-3.0"
+keywords = ["libdrm", "kms", "linux", "unsafe", "drm"]
+readme = "README.md"
 
 [dependencies]
 libc = "0.2.12"

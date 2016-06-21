@@ -105,3 +105,6 @@ pub struct drm_mode_property_enum {
 	value: u64,
 	name: [c_char; DRM_PROP_NAME_LEN as usize]
 }
+impl ::std::default::Default for drm_mode_property_enum {
+    fn default() -> drm_mode_property_enum { unsafe { ::std::mem::zeroed() } }
+}
