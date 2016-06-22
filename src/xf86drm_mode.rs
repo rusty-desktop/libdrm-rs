@@ -104,22 +104,22 @@ pub const DRM_MODE_FEATURE_DIRTYFB: c_int = 1;
 
 #[repr(C)]
 pub struct drmModeRes {
-	count_fbs: c_int,
-	fbs: *mut uint32_t,
+	pub count_fbs: c_int,
+	pub fbs: *mut uint32_t,
 
-	count_crtcs: c_int,
-	crtcs: *mut uint32_t,
+	pub count_crtcs: c_int,
+	pub crtcs: *mut uint32_t,
 
-	count_connectors: c_int,
-	connectors: *mut uint32_t,
+	pub count_connectors: c_int,
+	pub connectors: *mut uint32_t,
 
-	count_encoders: c_int,
-	encoders: *mut uint32_t,
+	pub count_encoders: c_int,
+	pub encoders: *mut uint32_t,
 
-	min_width: uint32_t,
-    max_width: uint32_t,
-    min_height: uint32_t,
-    max_height: uint32_t
+	pub min_width: uint32_t,
+    pub max_width: uint32_t,
+    pub min_height: uint32_t,
+    pub max_height: uint32_t
 }
 impl ::std::default::Default for drmModeRes {
     fn default() -> drmModeRes { unsafe { ::std::mem::zeroed() } }
@@ -129,21 +129,21 @@ pub type drmModeResPtr = *mut drmModeRes;
 
 #[repr(C)]
 pub struct drmModeModeInfo {
-	clock: uint32_t,
-	hdisplay: uint16_t,
-    hsync_start: uint16_t,
-    hsync_end: uint16_t,
-    htotal: uint16_t,
-    hskew: uint16_t,
-	vdisplay: uint16_t,
-    vsync_start: uint16_t,
-    vsync_end: uint16_t,
-    vtotal: uint16_t,
-    vscan: uint16_t,
-	vrefresh: uint32_t,
-	flags: uint32_t,
-	mode_type: uint32_t,
-	name: [c_char; DRM_DISPLAY_MODE_LEN as usize]
+	pub clock: uint32_t,
+	pub hdisplay: uint16_t,
+    pub hsync_start: uint16_t,
+    pub hsync_end: uint16_t,
+    pub htotal: uint16_t,
+    pub hskew: uint16_t,
+	pub vdisplay: uint16_t,
+    pub vsync_start: uint16_t,
+    pub vsync_end: uint16_t,
+    pub vtotal: uint16_t,
+    pub vscan: uint16_t,
+	pub vrefresh: uint32_t,
+	pub flags: uint32_t,
+	pub mode_type: uint32_t,
+	pub name: [c_char; DRM_DISPLAY_MODE_LEN as usize]
 }
 impl ::std::default::Default for drmModeModeInfo {
     fn default() -> drmModeModeInfo { unsafe { ::std::mem::zeroed() } }
@@ -153,14 +153,14 @@ pub type drmModeModeInfoPtr = *mut drmModeModeInfo;
 
 #[repr(C)]
 pub struct drmModeFB {
-	fb_id: uint32_t,
-	width: uint32_t,
-    height: uint32_t,
-	pitch: uint32_t,
-	bpp: uint32_t,
-	depth: uint32_t,
+	pub fb_id: uint32_t,
+	pub width: uint32_t,
+    pub height: uint32_t,
+	pub pitch: uint32_t,
+	pub bpp: uint32_t,
+	pub depth: uint32_t,
 	/* driver specific handle */
-	handle: uint32_t
+	pub handle: uint32_t
 }
 impl ::std::default::Default for drmModeFB {
     fn default() -> drmModeFB { unsafe { ::std::mem::zeroed() } }
@@ -173,9 +173,9 @@ pub type drmModeClipPtr = *mut drmModeClip;
 
 #[repr(C)]
 pub struct drmModePropertyBlobRes {
-	id: uint32_t,
-	length: uint32_t,
-	data: *mut c_void
+	pub id: uint32_t,
+	pub length: uint32_t,
+	pub data: *mut c_void
 }
 impl ::std::default::Default for drmModePropertyBlobRes {
     fn default() -> drmModePropertyBlobRes { unsafe { ::std::mem::zeroed() } }
@@ -185,15 +185,15 @@ pub type drmModePropertyBlobPtr = *mut drmModePropertyBlobRes;
 
 #[repr(C)]
 pub struct drmModePropertyRes {
-	prop_id: uint32_t,
-	flags: uint32_t,
-	name: [c_char; DRM_PROP_NAME_LEN as usize],
-	count_values: c_int,
-	values: uint64_t, /* store the blob lengths */
-	count_enums: c_int,
-	enums: *mut drm_mode_property_enum,
-	count_blobs: c_int,
-	blob_ids: *mut uint32_t
+	pub prop_id: uint32_t,
+	pub flags: uint32_t,
+	pub name: [c_char; DRM_PROP_NAME_LEN as usize],
+	pub count_values: c_int,
+	pub values: uint64_t, /* store the blob lengths */
+	pub count_enums: c_int,
+	pub enums: *mut drm_mode_property_enum,
+	pub count_blobs: c_int,
+	pub blob_ids: *mut uint32_t
 }
 impl ::std::default::Default for drmModePropertyRes {
     fn default() -> drmModePropertyRes { unsafe { ::std::mem::zeroed() } }
@@ -212,16 +212,16 @@ pub type drmModePropertyPtr = *mut drmModePropertyRes;
 
 #[repr(C)]
 pub struct drmModeCrtc {
-	crtc_id: uint32_t,
-	buffer_id: uint32_t, /**< FB id to connect to 0 = disconnect */
+	pub crtc_id: uint32_t,
+	pub buffer_id: uint32_t, /**< FB id to connect to 0 = disconnect */
 
-	x: uint32_t,
-    y: uint32_t, /**< Position on the framebuffer */
-	width: uint32_t,
-    height: uint32_t,
-	mode_valid: c_int,
-	mode: drmModeModeInfo,
-	gamma_size: c_int
+	pub x: uint32_t,
+    pub y: uint32_t, /**< Position on the framebuffer */
+	pub width: uint32_t,
+    pub height: uint32_t,
+	pub mode_valid: c_int,
+	pub mode: drmModeModeInfo,
+	pub gamma_size: c_int
 }
 impl ::std::default::Default for drmModeCrtc {
     fn default() -> drmModeCrtc { unsafe { ::std::mem::zeroed() } }
@@ -231,11 +231,11 @@ pub type drmModeCrtcPtr = *mut drmModeCrtc;
 
 #[repr(C)]
 pub struct drmModeEncoder {
-	encoder_id: uint32_t,
-	encoder_type: uint32_t,
-	crtc_id: uint32_t,
-	possible_crtcs: uint32_t,
-	possible_clones: uint32_t
+	pub encoder_id: uint32_t,
+	pub encoder_type: uint32_t,
+	pub crtc_id: uint32_t,
+	pub possible_crtcs: uint32_t,
+	pub possible_clones: uint32_t
 }
 impl ::std::default::Default for drmModeEncoder {
     fn default() -> drmModeEncoder { unsafe { ::std::mem::zeroed() } }
@@ -262,24 +262,24 @@ pub enum drmModeSubPixel {
 
 #[repr(C)]
 pub struct drmModeConnector {
-	connector_id: uint32_t,
-	encoder_id: uint32_t, /**< Encoder currently connected to */
-	connector_type: uint32_t,
-	connector_type_id: uint32_t,
-	connection: drmModeConnection,
-	mmWidth: uint32_t,
-    mmHeight: uint32_t, /**< HxW in millimeters */
-	subpixel: drmModeSubPixel,
+	pub connector_id: uint32_t,
+	pub encoder_id: uint32_t, /**< Encoder currently connected to */
+	pub connector_type: uint32_t,
+	pub connector_type_id: uint32_t,
+	pub connection: drmModeConnection,
+	pub mmWidth: uint32_t,
+    pub mmHeight: uint32_t, /**< HxW in millimeters */
+	pub subpixel: drmModeSubPixel,
 
-	count_modes: c_int,
-	modes: drmModeModeInfoPtr,
+	pub count_modes: c_int,
+	pub modes: drmModeModeInfoPtr,
 
-	count_props: c_int,
-	props: *mut uint32_t, /**< List of property ids */
-	prop_values: *mut uint64_t, /**< List of property values */
+	pub count_props: c_int,
+	pub props: *mut uint32_t, /**< List of property ids */
+	pub prop_values: *mut uint64_t, /**< List of property values */
 
-	count_encoders: c_int,
-	encoders: *mut uint32_t
+	pub count_encoders: c_int,
+	pub encoders: *mut uint32_t
 }
 impl ::std::default::Default for drmModeConnector {
     fn default() -> drmModeConnector { unsafe { ::std::mem::zeroed() } }
@@ -293,9 +293,9 @@ pub const DRM_PLANE_TYPE_CURSOR: c_int = 2;
 
 #[repr(C)]
 pub struct drmModeObjectProperties {
-	count_props: uint32_t,
-	props: *mut uint32_t,
-	prop_values: *mut uint64_t
+	pub count_props: uint32_t,
+	pub props: *mut uint32_t,
+	pub prop_values: *mut uint64_t
 }
 impl ::std::default::Default for drmModeObjectProperties {
     fn default() -> drmModeObjectProperties { unsafe { ::std::mem::zeroed() } }
@@ -305,20 +305,20 @@ pub type drmModeObjectPropertiesPtr = *mut drmModeObjectProperties;
 
 #[repr(C)]
 pub struct drmModePlane {
-	count_formats: uint32_t,
-	formats: *mut uint32_t,
-	plane_id: uint32_t,
+	pub count_formats: uint32_t,
+	pub formats: *mut uint32_t,
+	pub plane_id: uint32_t,
 
-	crtc_id: uint32_t,
-	fb_id: uint32_t,
+	pub crtc_id: uint32_t,
+	pub fb_id: uint32_t,
 
-	crtc_x: uint32_t,
-    crtc_y: uint32_t,
-	x: uint32_t,
-    y: uint32_t,
+	pub crtc_x: uint32_t,
+    pub crtc_y: uint32_t,
+	pub x: uint32_t,
+    pub y: uint32_t,
 
-	possible_crtcs: uint32_t,
-	gamma_size: uint32_t
+	pub possible_crtcs: uint32_t,
+	pub gamma_size: uint32_t
 }
 impl ::std::default::Default for drmModePlane {
     fn default() -> drmModePlane { unsafe { ::std::mem::zeroed() } }
@@ -328,8 +328,8 @@ pub type drmModePlanePtr = *mut drmModePlane;
 
 #[repr(C)]
 pub struct drmModePlaneRes {
-	count_planes: uint32_t,
-	planes: *mut uint32_t
+	pub count_planes: uint32_t,
+	pub planes: *mut uint32_t
 }
 impl ::std::default::Default for drmModePlaneRes {
     fn default() -> drmModePlaneRes { unsafe { ::std::mem::zeroed() } }
@@ -339,9 +339,9 @@ pub type drmModePlaneResPtr = *mut drmModePlaneRes;
 
 #[repr(C)]
 pub struct _drmModeAtomicReqItem {
-	object_id: uint32_t,
-	property_id: uint32_t,
-	value: uint64_t
+	pub object_id: uint32_t,
+	pub property_id: uint32_t,
+	pub value: uint64_t
 }
 impl ::std::default::Default for _drmModeAtomicReqItem {
     fn default() -> _drmModeAtomicReqItem { unsafe { ::std::mem::zeroed() } }
@@ -350,9 +350,9 @@ impl ::std::default::Default for _drmModeAtomicReqItem {
 
 #[repr(C)]
 pub struct _drmModeAtomicReq {
-	cursor: uint32_t,
-	size_items: uint32_t,
-	items: _drmModeAtomicReqItem
+	pub cursor: uint32_t,
+	pub size_items: uint32_t,
+	pub items: _drmModeAtomicReqItem
 }
 impl ::std::default::Default for _drmModeAtomicReq {
     fn default() -> _drmModeAtomicReq { unsafe { ::std::mem::zeroed() } }

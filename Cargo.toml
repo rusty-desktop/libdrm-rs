@@ -1,8 +1,8 @@
 [package]
 name = "drm-rs"
-version = "0.0.4"
+version = "0.0.13"
 authors = ["Alberto Simón <alberto@simon.ph>"]
-description = "libdrm bindings to be able to use Kernel Mode Setting on Linux"
+description = "(WIP) libdrm bindings to be able to use Kernel Mode Setting on Linux"
 repository = "https://github.com/asimonf/libdrm-rs"
 license = "GPL-3.0"
 keywords = ["libdrm", "kms", "linux", "unsafe", "drm"]
@@ -11,3 +11,4 @@ readme = "README.md"
 [dependencies]
 libc = "0.2.12"
 byteorder = "0.5.3"
+ioctl = "0.3.3"

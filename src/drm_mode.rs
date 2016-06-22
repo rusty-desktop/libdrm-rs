@@ -102,9 +102,49 @@ pub const DRM_MODE_DIRTY_ANNOTATE: c_int = 2;
 
 #[repr(C)]
 pub struct drm_mode_property_enum {
-	value: u64,
-	name: [c_char; DRM_PROP_NAME_LEN as usize]
+	pub value: u64,
+	pub name: [c_char; DRM_PROP_NAME_LEN as usize]
 }
 impl ::std::default::Default for drm_mode_property_enum {
     fn default() -> drm_mode_property_enum { unsafe { ::std::mem::zeroed() } }
+}
+
+#[repr(C)]
+pub struct drm_mode_create_dumb {
+    pub height: u32,
+    pub width: u32,
+    pub bpp: u32,
+    pub flags: u32,
+    /* handle, pitch, size will be returned */
+    pub handle: u32,
+    pub pitch: u32,
+    pub size: u64
+}
+impl ::std::default::Default for drm_mode_create_dumb {
+    fn default() -> drm_mode_create_dumb { unsafe { ::std::mem::zeroed() } }
+}
+
+/* set up for mmap of a dumb scanout buffer */
+#[repr(C)]
+pub struct drm_mode_map_dumb {
+    /** Handle for the object being mapped. */
+    pub handle: u32,
+    pub pad: u32,
+    /**
+    * Fake offset to use for subsequent mmap call
+    *
+    * This is a fixed-size type for 32/64 compatibility.
+    */
+    pub offset: u64
+}
+impl ::std::default::Default for drm_mode_map_dumb {
+    fn default() -> drm_mode_map_dumb { unsafe { ::std::mem::zeroed() } }
+}
+
+#[repr(C)]
+pub struct drm_mode_destroy_dumb {
+    pub handle: u32
+}
+impl ::std::default::Default for drm_mode_destroy_dumb {
+    fn default() -> drm_mode_destroy_dumb { unsafe { ::std::mem::zeroed() } }
 }

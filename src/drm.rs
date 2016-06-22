@@ -22,7 +22,6 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-
 use libc::*;
 use byteorder::{ByteOrder, NativeEndian};
 use util::*;
@@ -31,6 +30,205 @@ pub const DRM_NAME: &'static str = "drm";	        /**< Name in kernel, /dev, and
 pub const DRM_MIN_ORDER: c_int = 5;        /**< At least 2^5 bytes = 32 bytes */
 pub const DRM_MAX_ORDER: u8	= 22;	    /**< Up to 2^22 bytes = 4MB */
 pub const DRM_RAM_PERCENT: c_int = 10;	    /**< How much system ram can we lock? */
+
+#[macro_export]
+macro_rules! drm_io { ($nr:expr) => (io!(100, $nr)); }
+#[macro_export]
+macro_rules! drm_iow { ($nr:expr, $ty:expr) => (iow!(100, $nr, $ty)); }
+#[macro_export]
+macro_rules! drm_ior { ($nr:expr, $ty:expr) => (ior!(100, $nr, $ty)); }
+#[macro_export]
+macro_rules! drm_iowr { ($nr:expr, $ty:expr) => (iorw!(100, $nr, $ty)); }
+
+#[macro_export]
+macro_rules! drm_ioctl_version { () => (drm_iowr!(0x00, mem::size_of::<drm_version>())); }
+#[macro_export]
+macro_rules! drm_ioctl_get_unique { () => (drm_iowr!(0x01, mem::size_of::<drm_unique>())); }
+#[macro_export]
+macro_rules! drm_ioctl_get_magic { () => (drm_ior!(0x02, mem::size_of::<drm_auth>())); }
+#[macro_export]
+macro_rules! drm_ioctl_irq_busid { () => (drm_iowr!(0x03, mem::size_of::<drm_irq_busid>())); }
+#[macro_export]
+macro_rules! drm_ioctl_get_map { () => (drm_iowr!(0x04, mem::size_of::<drm_map>())); }
+#[macro_export]
+macro_rules! drm_ioctl_get_client { () => (drm_iowr!(0x05, mem::size_of::<drm_client>())); }
+#[macro_export]
+macro_rules! drm_ioctl_get_stats { () => (drm_ior!(0x06, mem::size_of::<drm_stats>())); }
+#[macro_export]
+macro_rules! drm_ioctl_set_version { () => (drm_iowr!(0x07, mem::size_of::<drm_set_version>())); }
+#[macro_export]
+macro_rules! drm_ioctl_modeset_ctl { () => (drm_iow!(0x08, mem::size_of::<drm_modeset_ctl>())); }
+#[macro_export]
+macro_rules! drm_ioctl_gem_close { () => (drm_iow!(0x09, mem::size_of::<drm_gem_close>())); }
+#[macro_export]
+macro_rules! drm_ioctl_gem_flink { () => (drm_iowr!(0x0a, mem::size_of::<drm_gem_flink>())); }
+#[macro_export]
+macro_rules! drm_ioctl_gem_open { () => (drm_iowr!(0x0b, mem::size_of::<drm_gem_open>())); }
+#[macro_export]
+macro_rules! drm_ioctl_get_cap { () => (drm_iowr!(0x0c, mem::size_of::<drm_get_cap>())); }
+#[macro_export]
+macro_rules! drm_ioctl_set_client_cap { () => (drm_iow!(0x0d, mem::size_of::<drm_set_client_cap>())); }
+
+#[macro_export]
+macro_rules! drm_ioctl_set_unique { () => (drm_iow!(0x10, mem::size_of::<drm_unique>())); }
+#[macro_export]
+macro_rules! drm_ioctl_auth_magic { () => (drm_iow!(0x11, mem::size_of::<drm_auth>())); }
+#[macro_export]
+macro_rules! drm_ioctl_block { () => (drm_iowr!(0x12, mem::size_of::<drm_block>())); }
+#[macro_export]
+macro_rules! drm_ioctl_unblock { () => (drm_iowr!(0x13, mem::size_of::<drm_block>())); }
+#[macro_export]
+macro_rules! drm_ioctl_control { () => (drm_iow!(0x14, mem::size_of::<drm_control>())); }
+#[macro_export]
+macro_rules! drm_ioctl_add_map { () => (drm_iowr!(0x15, mem::size_of::<drm_map>())); }
+#[macro_export]
+macro_rules! drm_ioctl_add_bufs { () => (drm_iowr!(0x16, mem::size_of::<drm_buf_desc>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mark_bufs { () => (drm_iow!(0x17, mem::size_of::<drm_buf_desc>())); }
+#[macro_export]
+macro_rules! drm_ioctl_info_bufs { () => (drm_iowr!(0x18, mem::size_of::<drm_buf_info>())); }
+#[macro_export]
+macro_rules! drm_ioctl_map_bufs { () => (drm_iowr!(0x19, mem::size_of::<drm_buf_map>())); }
+#[macro_export]
+macro_rules! drm_ioctl_free_bufs { () => (drm_iow!(0x1a, mem::size_of::<drm_buf_free>())); }
+
+#[macro_export]
+macro_rules! drm_ioctl_rm_map { () => (drm_iow!(0x1b, mem::size_of::<drm_map>())); }
+
+#[macro_export]
+macro_rules! drm_ioctl_set_sarea_ctx { () => (drm_iow!(0x1c, mem::size_of::<drm_ctx_priv_map>())); }
+#[macro_export]
+macro_rules! drm_ioctl_get_sarea_ctx { () => (drm_iowr!(0x1d, mem::size_of::<drm_ctx_priv_map>())); }
+
+#[macro_export]
+macro_rules! drm_ioctl_set_master { () => (drm_io!(0x1e)); }
+#[macro_export]
+macro_rules! drm_ioctl_drop_master { () => (drm_io!(0x1f)); }
+
+#[macro_export]
+macro_rules! drm_ioctl_add_ctx { () => (drm_iowr!(0x20, mem::size_of::<drm_ctx>())); }
+#[macro_export]
+macro_rules! drm_ioctl_rm_ctx { () => (drm_iowr!(0x21, mem::size_of::<drm_ctx>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mod_ctx { () => (drm_iow!(0x22, mem::size_of::<drm_ctx>())); }
+#[macro_export]
+macro_rules! drm_ioctl_get_ctx { () => (drm_iowr!(0x23, mem::size_of::<drm_ctx>())); }
+#[macro_export]
+macro_rules! drm_ioctl_switch_ctx { () => (drm_iow!(0x24, mem::size_of::<drm_ctx>())); }
+#[macro_export]
+macro_rules! drm_ioctl_new_ctx { () => (drm_iow!(0x25, mem::size_of::<drm_ctx>())); }
+#[macro_export]
+macro_rules! drm_ioctl_res_ctx { () => (drm_iowr!(0x26, mem::size_of::<drm_ctx_res>())); }
+#[macro_export]
+macro_rules! drm_ioctl_add_draw { () => (drm_iowr!(0x27, mem::size_of::<drm_draw>())); }
+#[macro_export]
+macro_rules! drm_ioctl_rm_draw { () => (drm_iowr!(0x28, mem::size_of::<drm_draw>())); }
+#[macro_export]
+macro_rules! drm_ioctl_dma { () => (drm_iowr!(0x29, mem::size_of::<drm_dma>())); }
+#[macro_export]
+macro_rules! drm_ioctl_lock { () => (drm_iow!(0x2a, mem::size_of::<drm_lock>())); }
+#[macro_export]
+macro_rules! drm_ioctl_unlock { () => (drm_iow!(0x2b, mem::size_of::<drm_lock>())); }
+#[macro_export]
+macro_rules! drm_ioctl_finish { () => (drm_iow!(0x2c, mem::size_of::<drm_lock>())); }
+
+#[macro_export]
+macro_rules! drm_ioctl_prime_handle_to_fd { () => (drm_iowr!(0x2d, mem::size_of::<drm_prime_handle>())); }
+#[macro_export]
+macro_rules! drm_ioctl_prime_fd_to_handle { () => (drm_iowr!(0x2e, mem::size_of::<drm_prime_handle>())); }
+
+#[macro_export]
+macro_rules! drm_ioctl_agp_acquire { () => (drm_io!(0x30)); }
+#[macro_export]
+macro_rules! drm_ioctl_agp_release { () => (drm_io!(0x31)); }
+#[macro_export]
+macro_rules! drm_ioctl_agp_enable { () => (drm_iow!(0x32, mem::size_of::<drm_agp_mode>())); }
+#[macro_export]
+macro_rules! drm_ioctl_agp_info { () => (drm_ior!(0x33, mem::size_of::<drm_agp_info>())); }
+#[macro_export]
+macro_rules! drm_ioctl_agp_alloc { () => (drm_iowr!(0x34, mem::size_of::<drm_agp_buffer>())); }
+#[macro_export]
+macro_rules! drm_ioctl_agp_free { () => (drm_iow!(0x35, mem::size_of::<drm_agp_buffer>())); }
+#[macro_export]
+macro_rules! drm_ioctl_agp_bind { () => (drm_iow!(0x36, mem::size_of::<drm_agp_binding>())); }
+#[macro_export]
+macro_rules! drm_ioctl_agp_unbind { () => (drm_iow!(0x37, mem::size_of::<drm_agp_binding>())); }
+
+#[macro_export]
+macro_rules! drm_ioctl_sg_alloc { () => (drm_iowr!(0x38, mem::size_of::<drm_scatter_gather>())); }
+#[macro_export]
+macro_rules! drm_ioctl_sg_free { () => (drm_iow!(0x39, mem::size_of::<drm_scatter_gather>())); }
+
+#[macro_export]
+macro_rules! drm_ioctl_wait_vblank { () => (drm_iowr!(0x3a, mem::size_of::<drm_wait_vblank>())); }
+
+#[macro_export]
+macro_rules! drm_ioctl_update_draw { () => (drm_iow!(0x3f, mem::size_of::<drm_update_draw>())); }
+
+#[macro_export]
+macro_rules! drm_ioctl_mode_getresources { () => (drm_iowr!(0xA0, mem::size_of::<drm_mode_card_res>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_getcrtc { () => (drm_iowr!(0xA1, mem::size_of::<drm_mode_crtc>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_setcrtc { () => (drm_iowr!(0xA2, mem::size_of::<drm_mode_crtc>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_cursor { () => (drm_iowr!(0xA3, mem::size_of::<drm_mode_cursor>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_getgamma { () => (drm_iowr!(0xA4, mem::size_of::<drm_mode_crtc_lut>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_setgamma { () => (drm_iowr!(0xA5, mem::size_of::<drm_mode_crtc_lut>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_getencoder { () => (drm_iowr!(0xA6, mem::size_of::<drm_mode_get_encoder>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_getconnector { () => (drm_iowr!(0xA7, mem::size_of::<drm_mode_get_connector>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_attachmode { () => (drm_iowr!(0xA8, mem::size_of::<drm_mode_mode_cmd>())); } /* deprecated (never worked) */
+#[macro_export]
+macro_rules! drm_ioctl_mode_detachmode { () => (drm_iowr!(0xA9, mem::size_of::<drm_mode_mode_cmd>())); } /* deprecated (never worked) */
+
+#[macro_export]
+macro_rules! drm_ioctl_mode_getproperty { () => (drm_iowr!(0xAA, mem::size_of::<drm_mode_get_property>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_setproperty { () => (drm_iowr!(0xAB, mem::size_of::<drm_mode_connector_set_property>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_getpropblob { () => (drm_iowr!(0xAC, mem::size_of::<drm_mode_get_blob>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_getfb { () => (drm_iowr!(0xAD, mem::size_of::<drm_mode_fb_cmd>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_addfb { () => (drm_iowr!(0xAE, mem::size_of::<drm_mode_fb_cmd>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_addfb { () => (drm_iowr!(0xAE, mem::size_of::<c_uint>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_page_flip { () => (drm_iowr!(0xB0, mem::size_of::<drm_mode_crtc_page_flip>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_dirtyfb { () => (drm_iowr!(0xB1, mem::size_of::<drm_mode_fb_dirty_cmd>())); }
+
+#[macro_export]
+macro_rules! drm_ioctl_mode_create_dumb { () => (drm_iowr!(0xB2, mem::size_of::<drm_mode_create_dumb>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_map_dumb { () => (drm_iowr!(0xB3, mem::size_of::<drm_mode_map_dumb>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_destroy_dumb { () => (drm_iowr!(0xB4, mem::size_of::<drm_mode_destroy_dumb>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_getplaneresources { () => (drm_iowr!(0xB5, mem::size_of::<drm_mode_get_plane_res>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_getplane { () => (drm_iowr!(0xB6, mem::size_of::<drm_mode_get_plane>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_setplane { () => (drm_iowr!(0xB7, mem::size_of::<drm_mode_set_plane>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_addfb2 { () => (drm_iowr!(0xB8, mem::size_of::<drm_mode_fb_cmd2>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_obj_getproperties { () => (drm_iowr!(0xB9, mem::size_of::<drm_mode_obj_get_properties>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_obj_setproperty { () => (drm_iowr!(0xBA, mem::size_of::<drm_mode_obj_set_property>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_cursor2 { () => (drm_iowr!(0xBB, mem::size_of::<drm_mode_cursor2>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_atomic { () => (drm_iowr!(0xBC, mem::size_of::<drm_mode_atomic>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_createpropblob { () => (drm_iowr!(0xBD, mem::size_of::<drm_mode_create_blob>())); }
+#[macro_export]
+macro_rules! drm_ioctl_mode_destroypropblob { () => (drm_iowr!(0xBE, mem::size_of::<drm_mode_destroy_blob>())); }
 
 pub type drm_context_t = c_uint;
 pub type drm_drawable_t = c_uint;
@@ -47,10 +245,10 @@ pub type drm_magic_t = c_uint;
  */
  #[repr(C)]
 pub struct drm_clip_rect {
-	x1: c_ushort,
-	y1: c_ushort,
-	x2: c_ushort,
-	y2: c_ushort
+	pub x1: c_ushort,
+	pub y1: c_ushort,
+	pub x2: c_ushort,
+	pub y2: c_ushort
 }
 impl ::std::default::Default for drm_clip_rect {
     fn default() -> drm_clip_rect { unsafe { ::std::mem::zeroed() } }
@@ -62,8 +260,8 @@ impl ::std::default::Default for drm_clip_rect {
  */
  #[repr(C)]
 pub struct drm_drawable_info {
-	num_rects: c_uint,
-	rects: *mut drm_clip_rect
+	pub num_rects: c_uint,
+	pub rects: *mut drm_clip_rect
 }
 impl ::std::default::Default for drm_drawable_info {
     fn default() -> drm_drawable_info { unsafe { ::std::mem::zeroed() } }
@@ -75,11 +273,11 @@ impl ::std::default::Default for drm_drawable_info {
  */
 #[repr(C)]
 pub struct drm_tex_region {
-	next: c_uchar,
-	prev: c_uchar,
-	in_use: c_uchar,
-	padding: c_uchar,
-	age: c_uint
+	pub next: c_uchar,
+	pub prev: c_uchar,
+	pub in_use: c_uchar,
+	pub padding: c_uchar,
+	pub age: c_uint
 }
 impl ::std::default::Default for drm_tex_region {
     fn default() -> drm_tex_region { unsafe { ::std::mem::zeroed() } }
@@ -95,13 +293,12 @@ impl ::std::default::Default for drm_tex_region {
  */
 #[repr(C)]
 pub struct drm_hw_lock {
-	lock: VolatileCell<c_uint>,		/**< lock variable */
-	padding: [c_char; 60]
+	pub lock: VolatileCell<c_uint>,		/**< lock variable */
+	pub padding: [c_char; 60]
 }
 impl ::std::default::Default for drm_hw_lock {
     fn default() -> drm_hw_lock { unsafe { ::std::mem::zeroed() } }
 }
-
 
 /**
  * DRM_IOCTL_VERSION ioctl argument type.
@@ -110,15 +307,15 @@ impl ::std::default::Default for drm_hw_lock {
  */
 #[repr(C)]
 pub struct drm_version {
-	version_major: c_int,	  /**< Major version */
-	version_minor: c_int,	  /**< Minor version */
-	version_patchlevel: c_int,	  /**< Patch level */
-	name_len: KernelSizeT,	  /**< Length of name buffer */
-	name: *mut c_char,	  /**< Name of driver */
-	date_len: KernelSizeT,	  /**< Length of date buffer */
-	date: *mut c_char,	  /**< User-space buffer to hold date */
-	desc_len: KernelSizeT,	  /**< Length of desc buffer */
-	desc: *mut c_char
+	pub version_major: c_int,	  /**< Major version */
+	pub version_minor: c_int,	  /**< Minor version */
+	pub version_patchlevel: c_int,	  /**< Patch level */
+	pub name_len: KernelSizeT,	  /**< Length of name buffer */
+	pub name: *mut c_char,	  /**< Name of driver */
+	pub date_len: KernelSizeT,	  /**< Length of date buffer */
+	pub date: *mut c_char,	  /**< User-space buffer to hold date */
+	pub desc_len: KernelSizeT,	  /**< Length of desc buffer */
+	pub desc: *mut c_char
 }
 impl ::std::default::Default for drm_version {
     fn default() -> drm_version { unsafe { ::std::mem::zeroed() } }
@@ -132,8 +329,8 @@ impl ::std::default::Default for drm_version {
  */
 #[repr(C)]
 pub struct drm_unique {
-	unique_len: KernelSizeT,	  /**< Length of unique */
-	unique: *mut c_char
+	pub unique_len: KernelSizeT,	  /**< Length of unique */
+	pub unique: *mut c_char
 }
 impl ::std::default::Default for drm_unique {
     fn default() -> drm_unique { unsafe { ::std::mem::zeroed() } }
@@ -142,8 +339,8 @@ impl ::std::default::Default for drm_unique {
 
 #[repr(C)]
 pub struct drm_list {
-	count: c_int,		  /**< Length of user-space structures */
-	version: *mut drm_version
+	pub count: c_int,		  /**< Length of user-space structures */
+	pub version: *mut drm_version
 }
 impl ::std::default::Default for drm_list {
     fn default() -> drm_list { unsafe { ::std::mem::zeroed() } }
@@ -152,7 +349,7 @@ impl ::std::default::Default for drm_list {
 
 #[repr(C)]
 pub struct drm_block {
-	unused: c_int
+	pub unused: c_int
 }
 impl ::std::default::Default for drm_block {
     fn default() -> drm_block { unsafe { ::std::mem::zeroed() } }
@@ -174,8 +371,8 @@ pub enum drm_control_func {
  */
 #[repr(C)]
 pub struct drm_control {
-	func: drm_control_func,
-	irq: c_int
+	pub func: drm_control_func,
+	pub irq: c_int
 }
 impl ::std::default::Default for drm_control {
     fn default() -> drm_control { unsafe { ::std::mem::zeroed() } }
@@ -246,12 +443,12 @@ impl ::std::default::Default for drm_map {
  */
 #[repr(C)]
 pub struct drm_client {
-	idx: c_int,		/**< Which client desired? */
-	auth: c_int,		/**< Is client authenticated? */
-	pid: c_ulong,	/**< Process ID */
-	uid: c_ulong,	/**< User ID */
-	magic: c_ulong,	/**< Magic */
-	iocs: c_ulong
+	pub idx: c_int,		/**< Which client desired? */
+	pub auth: c_int,		/**< Is client authenticated? */
+	pub pid: c_ulong,	/**< Process ID */
+	pub uid: c_ulong,	/**< User ID */
+	pub magic: c_ulong,	/**< Magic */
+	pub iocs: c_ulong
 }
 impl ::std::default::Default for drm_client {
     fn default() -> drm_client { unsafe { ::std::mem::zeroed() } }
@@ -293,8 +490,8 @@ impl ::std::default::Default for drm_stats_data {
  */
 #[repr(C)]
 pub struct drm_stats {
-	count: c_ulong,
-	data: [drm_stats_data; 15]
+	pub count: c_ulong,
+	pub data: [drm_stats_data; 15]
 }
 impl ::std::default::Default for drm_stats {
     fn default() -> drm_stats { unsafe { ::std::mem::zeroed() } }
@@ -324,8 +521,8 @@ pub enum drm_lock_flags {
  */
 #[repr(C)]
 pub struct drm_lock {
-	context: c_int,
-	flags: drm_lock_flags
+	pub context: c_int,
+	pub flags: drm_lock_flags
 }
 impl ::std::default::Default for drm_lock {
     fn default() -> drm_lock { unsafe { ::std::mem::zeroed() } }
@@ -378,12 +575,12 @@ pub enum drm_buf_desc_flags {
  */
 #[repr(C)]
 pub struct drm_buf_desc {
-	count: c_int,		 /**< Number of buffers of this size */
-	size: c_int,		 /**< Size in bytes */
-	low_mark: c_int,		 /**< Low water mark */
-	high_mark: c_int,		 /**< High water mark */
-	flags: drm_buf_desc_flags,
-	agp_start: c_ulong
+	pub count: c_int,		 /**< Number of buffers of this size */
+	pub size: c_int,		 /**< Size in bytes */
+	pub low_mark: c_int,		 /**< Low water mark */
+	pub high_mark: c_int,		 /**< High water mark */
+	pub flags: drm_buf_desc_flags,
+	pub agp_start: c_ulong
 }
 impl ::std::default::Default for drm_buf_desc {
     fn default() -> drm_buf_desc { unsafe { ::std::mem::zeroed() } }
@@ -395,8 +592,8 @@ impl ::std::default::Default for drm_buf_desc {
  */
 #[repr(C)]
 pub struct drm_buf_info {
-	count: c_int,		/**< Entries in list */
-	list: *mut drm_buf_desc
+	pub count: c_int,		/**< Entries in list */
+	pub list: *mut drm_buf_desc
 }
 impl ::std::default::Default for drm_buf_info {
     fn default() -> drm_buf_info { unsafe { ::std::mem::zeroed() } }
@@ -408,8 +605,8 @@ impl ::std::default::Default for drm_buf_info {
  */
 #[repr(C)]
 pub struct drm_buf_free {
-	count: c_int,
-	list: *mut c_int
+	pub count: c_int,
+	pub list: *mut c_int
 }
 impl ::std::default::Default for drm_buf_free {
     fn default() -> drm_buf_free { unsafe { ::std::mem::zeroed() } }
@@ -423,10 +620,10 @@ impl ::std::default::Default for drm_buf_free {
  */
 #[repr(C)]
 pub struct drm_buf_pub {
-	idx: c_int,		       /**< Index into the master buffer list */
-	total: c_int,		       /**< Buffer size */
-	used: c_int,		       /**< Amount of buffer in use (for DMA) */
-	address: *mut c_void
+	pub idx: c_int,		       /**< Index into the master buffer list */
+	pub total: c_int,		       /**< Buffer size */
+	pub used: c_int,		       /**< Amount of buffer in use (for DMA) */
+	pub address: *mut c_void
 }
 impl ::std::default::Default for drm_buf_pub {
     fn default() -> drm_buf_pub { unsafe { ::std::mem::zeroed() } }
@@ -438,9 +635,9 @@ impl ::std::default::Default for drm_buf_pub {
  */
 #[repr(C)]
 pub struct drm_buf_map {
-	count: c_int,		/**< Length of the buffer list */
-	virtual_address: *mut c_void,		/**< Mmap'd area in user-virtual */
-	list: *mut drm_buf_pub
+	pub count: c_int,		/**< Length of the buffer list */
+	pub virtual_address: *mut c_void,		/**< Mmap'd area in user-virtual */
+	pub list: *mut drm_buf_pub
 }
 impl ::std::default::Default for drm_buf_map {
     fn default() -> drm_buf_map { unsafe { ::std::mem::zeroed() } }
@@ -456,16 +653,16 @@ impl ::std::default::Default for drm_buf_map {
  */
 #[repr(C)]
 pub struct drm_dma {
-	context: c_int,			  /**< Context handle */
-	send_count: c_int,			  /**< Number of buffers to send */
-	send_indices: *mut c_int,	  /**< List of handles to buffers */
-	send_sizes: *mut c_int,		  /**< Lengths of data to send */
-	flags: drm_dma_flags,	  /**< Flags */
-	request_count: c_int,		  /**< Number of buffers requested */
-	request_size: c_int,		  /**< Desired size for buffers */
-	request_indices: *mut c_int,	  /**< Buffer information */
-	request_sizes: *mut c_int,
-	granted_count: c_int
+	pub context: c_int,			  /**< Context handle */
+	pub send_count: c_int,			  /**< Number of buffers to send */
+	pub send_indices: *mut c_int,	  /**< List of handles to buffers */
+	pub send_sizes: *mut c_int,		  /**< Lengths of data to send */
+	pub flags: drm_dma_flags,	  /**< Flags */
+	pub request_count: c_int,		  /**< Number of buffers requested */
+	pub request_size: c_int,		  /**< Desired size for buffers */
+	pub request_indices: *mut c_int,	  /**< Buffer information */
+	pub request_sizes: *mut c_int,
+	pub granted_count: c_int
 }
 impl ::std::default::Default for drm_dma {
     fn default() -> drm_dma { unsafe { ::std::mem::zeroed() } }
@@ -485,8 +682,8 @@ pub enum drm_ctx_flags {
  */
 #[repr(C)]
 pub struct drm_ctx {
-	handle: drm_context_t,
-	flags: drm_ctx_flags
+	pub handle: drm_context_t,
+	pub flags: drm_ctx_flags
 }
 impl ::std::default::Default for drm_ctx {
     fn default() -> drm_ctx { unsafe { ::std::mem::zeroed() } }
@@ -498,8 +695,8 @@ impl ::std::default::Default for drm_ctx {
  */
 #[repr(C)]
 pub struct drm_ctx_res {
-	count: c_int,
-	contexts: *mut drm_ctx
+	pub count: c_int,
+	pub contexts: *mut drm_ctx
 }
 impl ::std::default::Default for drm_ctx_res {
     fn default() -> drm_ctx_res { unsafe { ::std::mem::zeroed() } }
@@ -510,7 +707,7 @@ impl ::std::default::Default for drm_ctx_res {
  * DRM_IOCTL_ADD_DRAW and DRM_IOCTL_RM_DRAW ioctl argument type.
  */
 struct drm_draw {
-	handle: drm_drawable_t
+	pub handle: drm_drawable_t
 }
 
 /**
@@ -523,22 +720,21 @@ pub enum drm_drawable_info_type_t {
 
 #[repr(C)]
 pub struct drm_update_draw {
-	handle: drm_drawable_t,
-	update_type: c_uint,
-	num: c_uint,
-	data: c_ulonglong
+	pub handle: drm_drawable_t,
+	pub update_type: c_uint,
+	pub num: c_uint,
+	pub data: c_ulonglong
 }
 impl ::std::default::Default for drm_update_draw {
     fn default() -> drm_update_draw { unsafe { ::std::mem::zeroed() } }
 }
-
 
 /**
  * DRM_IOCTL_GET_MAGIC and DRM_IOCTL_AUTH_MAGIC ioctl argument type.
  */
 #[repr(C)]
 pub struct drm_auth {
-	magic: drm_magic_t
+	pub magic: drm_magic_t
 }
 impl ::std::default::Default for drm_auth {
     fn default() -> drm_auth { unsafe { ::std::mem::zeroed() } }
@@ -552,10 +748,10 @@ impl ::std::default::Default for drm_auth {
  */
 #[repr(C)]
 pub struct drm_irq_busid {
-	irq: c_int,	/**< IRQ number */
-	busnum: c_int,	/**< bus number */
-	devnum: c_int,	/**< device number */
-	funcnum: c_int
+	pub irq: c_int,	/**< IRQ number */
+	pub busnum: c_int,	/**< bus number */
+	pub devnum: c_int,	/**< device number */
+	pub funcnum: c_int
 }
 impl ::std::default::Default for drm_irq_busid {
     fn default() -> drm_irq_busid { unsafe { ::std::mem::zeroed() } }
@@ -593,9 +789,9 @@ pub const _DRM_VBLANK_HIGH_CRTC_SHIFT: c_int = 1;
 
 #[repr(C)]
 pub struct drm_wait_vblank_request {
-	request_type: drm_vblank_seq_type,
-	sequence: c_uint,
-	signal: c_ulong,
+	pub request_type: drm_vblank_seq_type,
+	pub sequence: c_uint,
+	pub signal: c_ulong,
 }
 impl ::std::default::Default for drm_wait_vblank_request {
     fn default() -> drm_wait_vblank_request { unsafe { ::std::mem::zeroed() } }
@@ -604,10 +800,10 @@ impl ::std::default::Default for drm_wait_vblank_request {
 
 #[repr(C)]
 pub struct drm_wait_vblank_reply {
-	reply_type: drm_vblank_seq_type,
-	sequence: c_uint,
-	tval_sec: c_long,
-	tval_usec: c_long
+	pub reply_type: drm_vblank_seq_type,
+	pub sequence: c_uint,
+	pub tval_sec: c_long,
+	pub tval_usec: c_long
 }
 impl ::std::default::Default for drm_wait_vblank_reply {
     fn default() -> drm_wait_vblank_reply { unsafe { ::std::mem::zeroed() } }
@@ -621,7 +817,7 @@ impl ::std::default::Default for drm_wait_vblank_reply {
  */
 #[repr(C)]
 pub struct drm_wait_vblank {
-	data: [u8; 24]
+	pub data: [u8; 24]
 }
 impl ::std::default::Default for drm_wait_vblank {
     fn default() -> drm_wait_vblank { unsafe { ::std::mem::zeroed() } }
@@ -686,8 +882,8 @@ pub const _DRM_POST_MODESET: c_int = 2;
  */
 #[repr(C)]
 pub struct drm_modeset_ctl {
-    crtc: u32,
-	cmd: u32
+    pub crtc: u32,
+	pub cmd: u32
 }
 impl ::std::default::Default for drm_modeset_ctl {
     fn default() -> drm_modeset_ctl { unsafe { ::std::mem::zeroed() } }
@@ -701,7 +897,7 @@ impl ::std::default::Default for drm_modeset_ctl {
  */
 #[repr(C)]
 pub struct drm_agp_mode {
-	mode: c_ulong
+	pub mode: c_ulong
 }
 impl ::std::default::Default for drm_agp_mode {
     fn default() -> drm_agp_mode { unsafe { ::std::mem::zeroed() } }
@@ -715,10 +911,10 @@ impl ::std::default::Default for drm_agp_mode {
  */
 #[repr(C)]
 pub struct drm_agp_buffer {
-	size: c_ulong,	/**< In bytes -- will round to page boundary */
-	handle: c_ulong,	/**< Used for binding / unbinding */
-	buffer_type: c_ulong,	/**< Type of memory to allocate */
-	physical: c_ulong
+	pub size: c_ulong,	/**< In bytes -- will round to page boundary */
+	pub handle: c_ulong,	/**< Used for binding / unbinding */
+	pub buffer_type: c_ulong,	/**< Type of memory to allocate */
+	pub physical: c_ulong
 }
 impl ::std::default::Default for drm_agp_buffer {
     fn default() -> drm_agp_buffer { unsafe { ::std::mem::zeroed() } }
@@ -732,8 +928,8 @@ impl ::std::default::Default for drm_agp_buffer {
  */
 #[repr(C)]
 pub struct drm_agp_binding {
-	handle: c_ulong,	/**< From drm_agp_buffer */
-	offset: c_ulong
+	pub handle: c_ulong,	/**< From drm_agp_buffer */
+	pub offset: c_ulong
 }
 impl ::std::default::Default for drm_agp_binding {
     fn default() -> drm_agp_binding { unsafe { ::std::mem::zeroed() } }
@@ -749,17 +945,17 @@ impl ::std::default::Default for drm_agp_binding {
  */
 #[repr(C)]
 pub struct drm_agp_info {
-	agp_version_major: c_int,
-	agp_version_minor: c_int,
-	mode: c_ulong,
-	aperture_base: c_ulong,	/* physical address */
-	aperture_size: c_ulong,	/* bytes */
-	memory_allowed: c_ulong,	/* bytes */
-	memory_used: c_ulong,
+	pub agp_version_major: c_int,
+	pub agp_version_minor: c_int,
+	pub mode: c_ulong,
+	pub aperture_base: c_ulong,	/* physical address */
+	pub aperture_size: c_ulong,	/* bytes */
+	pub memory_allowed: c_ulong,	/* bytes */
+	pub memory_used: c_ulong,
 
 	/* PCI information */
-	id_vendor: c_ushort,
-	id_device: c_ushort
+	pub id_vendor: c_ushort,
+	pub id_device: c_ushort
 }
 impl ::std::default::Default for drm_agp_info {
     fn default() -> drm_agp_info { unsafe { ::std::mem::zeroed() } }
@@ -771,8 +967,8 @@ impl ::std::default::Default for drm_agp_info {
  */
 #[repr(C)]
 pub struct drm_scatter_gather {
-	size: c_ulong,	/**< In bytes -- will round to page boundary */
-	handle: c_ulong
+	pub size: c_ulong,	/**< In bytes -- will round to page boundary */
+	pub handle: c_ulong
 }
 impl ::std::default::Default for drm_scatter_gather {
     fn default() -> drm_scatter_gather { unsafe { ::std::mem::zeroed() } }
@@ -784,10 +980,10 @@ impl ::std::default::Default for drm_scatter_gather {
  */
 #[repr(C)]
 pub struct drm_set_version {
-	drm_di_major: c_int,
-	drm_di_minor: c_int,
-	drm_dd_major: c_int,
-	drm_dd_minor: c_int
+	pub drm_di_major: c_int,
+	pub drm_di_minor: c_int,
+	pub drm_dd_major: c_int,
+	pub drm_dd_minor: c_int
 }
 impl ::std::default::Default for drm_set_version {
     fn default() -> drm_set_version { unsafe { ::std::mem::zeroed() } }
@@ -797,18 +993,18 @@ impl ::std::default::Default for drm_set_version {
 /** DRM_IOCTL_GEM_CLOSE ioctl argument type */
 struct drm_gem_close {
 	/** Handle of the object to be closed. */
-	handle: u32,
-	pad: u32
+	pub handle: u32,
+	pub pad: u32
 }
 
 /** DRM_IOCTL_GEM_FLINK ioctl argument type */
 #[repr(C)]
 pub struct drm_gem_flink {
 	/** Handle for the object being named */
-	handle: u32,
+	pub handle: u32,
 
 	/** Returned global name */
-	name: u32
+	pub name: u32
 }
 impl ::std::default::Default for drm_gem_flink {
     fn default() -> drm_gem_flink { unsafe { ::std::mem::zeroed() } }
@@ -819,13 +1015,13 @@ impl ::std::default::Default for drm_gem_flink {
 #[repr(C)]
 pub struct drm_gem_open {
 	/** Name of object being opened */
-	name: u32,
+	pub name: u32,
 
 	/** Returned handle for the object */
-	handle: u32,
+	pub handle: u32,
 
 	/** Returned size of the object */
-	size: u64
+	pub size: u64
 }
 impl ::std::default::Default for drm_gem_open {
     fn default() -> drm_gem_open { unsafe { ::std::mem::zeroed() } }
@@ -857,8 +1053,8 @@ pub const DRM_CAP_ADDFB2_MODIFIERS: c_int = 0x10;
 /** DRM_IOCTL_GET_CAP ioctl argument type */
 #[repr(C)]
 pub struct drm_get_cap {
-	capability: u64,
-	value: u64
+	pub capability: u64,
+	pub value: u64
 }
 impl ::std::default::Default for drm_get_cap {
     fn default() -> drm_get_cap { unsafe { ::std::mem::zeroed() } }
@@ -892,8 +1088,8 @@ pub const DRM_CLIENT_CAP_ATOMIC: c_int = 3;
 /** DRM_IOCTL_SET_CLIENT_CAP ioctl argument type */
 #[repr(C)]
 pub struct drm_set_client_cap {
-	capability: u64,
-	value: u64
+	pub capability: u64,
+	pub value: u64
 }
 impl ::std::default::Default for drm_set_client_cap {
     fn default() -> drm_set_client_cap { unsafe { ::std::mem::zeroed() } }
@@ -904,13 +1100,13 @@ pub const DRM_RDWR: c_int = O_RDWR;
 // const DRM_CLOEXEC: c_int = O_CLOEXEC;
 #[repr(C)]
 pub struct drm_prime_handle {
-	handle: u32,
+	pub handle: u32,
 
 	/** Flags.. only applicable for handle->fd */
-	flags: u32,
+	pub flags: u32,
 
 	/** Returned dmabuf file descriptor */
-	fd: i32
+	pub fd: i32
 }
 impl ::std::default::Default for drm_prime_handle {
     fn default() -> drm_prime_handle { unsafe { ::std::mem::zeroed() } }
@@ -944,8 +1140,8 @@ pub const DRM_COMMAND_END: c_int = 0xA0;
  */
 #[repr(C)]
 pub struct drm_event {
-	event_type: u32,
-	length: u32
+	pub event_type: u32,
+	pub length: u32
 }
 impl ::std::default::Default for drm_event {
     fn default() -> drm_event { unsafe { ::std::mem::zeroed() } }
@@ -957,12 +1153,12 @@ pub const DRM_EVENT_FLIP_COMPLETE: c_int = 0x02;
 
 #[repr(C)]
 pub struct drm_event_vblank {
-	base: drm_event,
-	user_data: u64,
-	tv_sec: u32,
-	tv_usec: u32,
-	sequence: u32,
-	reserved: u32
+	pub base: drm_event,
+	pub user_data: u64,
+	pub tv_sec: u32,
+	pub tv_usec: u32,
+	pub sequence: u32,
+	pub reserved: u32
 }
 impl ::std::default::Default for drm_event_vblank {
     fn default() -> drm_event_vblank { unsafe { ::std::mem::zeroed() } }

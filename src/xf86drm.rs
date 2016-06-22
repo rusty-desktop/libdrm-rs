@@ -111,10 +111,10 @@ pub type drm_context_tFlagsPtr = *mut drm_context_tFlags;
 
 #[repr(C)]
 pub struct drmBufDesc {
-    count: c_int,	  /**< Number of buffers of this size */
-    size: c_int,	  /**< Size in bytes */
-    low_mark: c_int,  /**< Low water mark */
-    high_mark: c_int
+    pub count: c_int,	  /**< Number of buffers of this size */
+    pub size: c_int,	  /**< Size in bytes */
+    pub low_mark: c_int,  /**< Low water mark */
+    pub high_mark: c_int
 }
 impl ::std::default::Default for drmBufDesc {
     fn default() -> drmBufDesc { unsafe { ::std::mem::zeroed() } }
@@ -124,8 +124,8 @@ pub type drmBufDescPtr = *mut drmBufDesc;
 
 #[repr(C)]
 pub struct drmBufInfo {
-    count: c_int,	        /**< Number of buffers described in list */
-    list: *mut drmBufDesc
+    pub count: c_int,	        /**< Number of buffers described in list */
+    pub list: *mut drmBufDesc
 }
 impl ::std::default::Default for drmBufInfo {
     fn default() -> drmBufInfo { unsafe { ::std::mem::zeroed() } }
@@ -135,10 +135,10 @@ pub type drmBufInfoPtr = *mut drmBufInfo;
 
 #[repr(C)]
 pub struct drmBuf {
-    idx: c_int,	        /**< Index into the master buffer list */
-    total: c_int,	    /**< Buffer size */
-    used: c_int,	    /**< Amount of buffer in use (for DMA) */
-    address: drmAddress
+    pub idx: c_int,	        /**< Index into the master buffer list */
+    pub total: c_int,	    /**< Buffer size */
+    pub used: c_int,	    /**< Amount of buffer in use (for DMA) */
+    pub address: drmAddress
 }
 impl ::std::default::Default for drmBuf {
     fn default() -> drmBuf { unsafe { ::std::mem::zeroed() } }
@@ -154,8 +154,8 @@ pub type drmBufPtr = *mut drmBuf;
  */
 #[repr(C)]
 pub struct drmBufMap {
-    count: c_int,	  /**< Number of buffers mapped */
-    list: drmBufPtr
+    pub count: c_int,	  /**< Number of buffers mapped */
+    pub list: drmBufPtr
 }
 impl ::std::default::Default for drmBufMap {
     fn default() -> drmBufMap { unsafe { ::std::mem::zeroed() } }
@@ -165,8 +165,8 @@ pub type drmBufMapPtr = *mut drmBufMap;
 
 #[repr(C)]
 pub struct drmLock {
-    lock: VolatileCell<c_uint>,
-    padding: [c_char; 60]
+    pub lock: VolatileCell<c_uint>,
+    pub padding: [c_char; 60]
     /* This is big enough for most current (and future?) architectures:
        DEC Alpha:              32 bytes
        Intel Merced:           ?
@@ -191,16 +191,16 @@ pub type drmLockPtr = *mut drmLock;
  */
  #[repr(C)]
 pub struct drmDMAReq {
-    context: drm_context_t,  	  /**< Context handle */
-    send_count: c_int,            /**< Number of buffers to send */
-    send_list: *mut c_int,        /**< List of handles to buffers */
-    send_sizes: *mut c_int,       /**< Lengths of data to send, in bytes */
-    flags: drmDMAFlags,           /**< Flags */
-    request_count: c_int,         /**< Number of buffers requested */
-    request_size: c_int,          /**< Desired size of buffers requested */
-    request_list: *mut c_int,     /**< Buffer information */
-    request_sizes: *mut c_int,    /**< Minimum acceptable sizes */
-    granted_count: c_int
+    pub context: drm_context_t,  	  /**< Context handle */
+    pub send_count: c_int,            /**< Number of buffers to send */
+    pub send_list: *mut c_int,        /**< List of handles to buffers */
+    pub send_sizes: *mut c_int,       /**< Lengths of data to send, in bytes */
+    pub flags: drmDMAFlags,           /**< Flags */
+    pub request_count: c_int,         /**< Number of buffers requested */
+    pub request_size: c_int,          /**< Desired size of buffers requested */
+    pub request_list: *mut c_int,     /**< Buffer information */
+    pub request_sizes: *mut c_int,    /**< Minimum acceptable sizes */
+    pub granted_count: c_int
 }
 impl ::std::default::Default for drmDMAReq {
     fn default() -> drmDMAReq { unsafe { ::std::mem::zeroed() } }
@@ -210,10 +210,10 @@ pub type drmDMAReqPtr = *mut drmDMAReq;
 
 #[repr(C)]
 pub struct drmRegion {
-    handle: drm_handle_t,
-    offset: c_uint,
-    size: drmSize,
-    map: drmAddress
+    pub handle: drm_handle_t,
+    pub offset: c_uint,
+    pub size: drmSize,
+    pub map: drmAddress
 }
 impl ::std::default::Default for drmRegion {
     fn default() -> drmRegion { unsafe { ::std::mem::zeroed() } }
@@ -223,11 +223,11 @@ pub type drmRegionPtr = *mut drmRegion;
 
 #[repr(C)]
 pub struct drmTextureRegion {
-    next: c_uchar,
-    prev: c_uchar,
-    in_use: c_uchar,
-    padding: c_uchar,	/**< Explicitly pad this out */
-    age: c_uint
+    pub next: c_uchar,
+    pub prev: c_uchar,
+    pub in_use: c_uchar,
+    pub padding: c_uchar,	/**< Explicitly pad this out */
+    pub age: c_uint
 }
 impl ::std::default::Default for drmTextureRegion {
     fn default() -> drmTextureRegion { unsafe { ::std::mem::zeroed() } }
@@ -237,10 +237,10 @@ pub type drmTextureRegionPtr = *mut drmTextureRegion;
 
 #[repr(C)]
 pub struct drmPciBusInfo {
-    domain: uint16_t,
-    bus: uint8_t,
-    dev: uint8_t,
-    func: uint8_t,
+    pub domain: uint16_t,
+    pub bus: uint8_t,
+    pub dev: uint8_t,
+    pub func: uint8_t,
 }
 impl ::std::default::Default for drmPciBusInfo {
     fn default() -> drmPciBusInfo { unsafe { ::std::mem::zeroed() } }
@@ -250,11 +250,11 @@ pub type drmPciBusInfoPtr = *mut drmPciBusInfo;
 
 #[repr(C)]
 pub struct drmPciDeviceInfo {
-    vendor_id: uint16_t,
-    device_id: uint16_t,
-    subvendor_id: uint16_t,
-    subdevice_id: uint16_t,
-    revision_id: uint8_t,
+    pub vendor_id: uint16_t,
+    pub device_id: uint16_t,
+    pub subvendor_id: uint16_t,
+    pub subdevice_id: uint16_t,
+    pub revision_id: uint8_t,
 }
 impl ::std::default::Default for drmPciDeviceInfo {
     fn default() -> drmPciDeviceInfo { unsafe { ::std::mem::zeroed() } }
@@ -264,7 +264,7 @@ pub type drmPciDeviceInfoPtr = *mut drmPciDeviceInfo;
 
 #[repr(C)]
 pub struct businfo {
-    pci: drmPciBusInfoPtr
+    pub pci: drmPciBusInfoPtr
 }
 impl ::std::default::Default for businfo {
     fn default() -> businfo { unsafe { ::std::mem::zeroed() } }
@@ -273,7 +273,7 @@ impl ::std::default::Default for businfo {
 
 #[repr(C)]
 pub struct deviceinfo {
-    pci: drmPciDeviceInfoPtr
+    pub pci: drmPciDeviceInfoPtr
 }
 impl ::std::default::Default for deviceinfo {
     fn default() -> deviceinfo { unsafe { ::std::mem::zeroed() } }
@@ -282,11 +282,11 @@ impl ::std::default::Default for deviceinfo {
 
 #[repr(C)]
 pub struct drmDevice {
-    nodes: *mut *mut c_char, /* DRM_NODE_MAX sized array */
-    available_nodes: c_int, /* DRM_NODE_* bitmask */
-    bustype: c_int,
-    businfo: businfo,
-    deviceinfo: deviceinfo
+    pub nodes: *mut *mut c_char, /* DRM_NODE_MAX sized array */
+    pub available_nodes: c_int, /* DRM_NODE_* bitmask */
+    pub bustype: c_int,
+    pub businfo: businfo,
+    pub deviceinfo: deviceinfo
 }
 impl ::std::default::Default for drmDevice {
     fn default() -> drmDevice { unsafe { ::std::mem::zeroed() } }
@@ -298,15 +298,15 @@ pub type drmDevicePtr = *mut drmDevice;
 pub struct drmEventContext {
 	/* This struct is versioned so we can add more pointers if we
 	 * add more events. */
-	version: c_int,
+	pub version: c_int,
 
-	vblank_handler: extern fn(fd: c_int,
+	pub vblank_handler: extern fn(fd: c_int,
 			       sequence: c_uint,
 			       tv_sec: c_uint,
 			       tv_usec: c_uint,
 			       user_data: *mut c_void) -> c_void,
 
-	page_flip_handler: extern fn(fd: c_int,
+	pub page_flip_handler: extern fn(fd: c_int,
 				  sequence: c_uint,
 				  tv_sec: c_uint,
 				  tv_usec: c_uint,
@@ -349,9 +349,9 @@ impl drmVBlankSeqType {
 
 #[repr(C)]
 pub struct drmVBlankReq {
-	request_type: drmVBlankSeqType,
-	sequence: c_uint,
-	signal: c_ulong,
+	pub request_type: drmVBlankSeqType,
+	pub sequence: c_uint,
+	pub signal: c_ulong,
 }
 impl ::std::default::Default for drmVBlankReq {
     fn default() -> drmVBlankReq { unsafe { ::std::mem::zeroed() } }
@@ -361,10 +361,10 @@ pub type drmVBlankReqPtr = *mut drmVBlankReq;
 
 #[repr(C)]
 pub struct drmVBlankReply {
-	reply_type: drmVBlankSeqType,
-	sequence: c_uint,
-	tval_sec: c_long,
-	tval_usec: c_long
+	pub reply_type: drmVBlankSeqType,
+	pub sequence: c_uint,
+	pub tval_sec: c_long,
+	pub tval_usec: c_long
 }
 impl ::std::default::Default for drmVBlankReply {
     fn default() -> drmVBlankReply { unsafe { ::std::mem::zeroed() } }
@@ -374,7 +374,7 @@ pub type drmVBlankReplyPtr = *mut drmVBlankReply;
 
 #[repr(C)]
 pub struct drmVBlank {
-    data: [u8; 24]
+    pub data: [u8; 24]
 }
 impl ::std::default::Default for drmVBlank {
     fn default() -> drmVBlank { unsafe { ::std::mem::zeroed() } }
@@ -432,9 +432,9 @@ impl drmVBlank {
 
 #[repr(C)]
 pub struct drmServerInfo {
-  debug_print: extern fn(format: *const c_char, ap: va_list) -> c_int,
-  load_module: extern fn(name: *const c_char) -> c_int,
-  get_perms: extern fn(gid: *mut gid_t, mode: *mut mode_t) -> c_void
+  pub debug_print: extern fn(format: *const c_char, ap: va_list) -> c_int,
+  pub load_module: extern fn(name: *const c_char) -> c_int,
+  pub get_perms: extern fn(gid: *mut gid_t, mode: *mut mode_t) -> c_void
 }
 impl ::std::default::Default for drmServerInfo {
     fn default() -> drmServerInfo { unsafe { ::std::mem::zeroed() } }
@@ -444,9 +444,9 @@ pub type drmServerInfoPtr = *mut drmServerInfo;
 
 #[repr(C)]
 pub struct drmHashEntry {
-    fd: c_int,
-    f: extern fn(num: c_int, ptr1: *mut c_void, ptr2: *mut c_void) -> c_void,
-    tag_table: *mut c_void
+    pub fd: c_int,
+    pub f: extern fn(num: c_int, ptr1: *mut c_void, ptr2: *mut c_void) -> c_void,
+    pub tag_table: *mut c_void
 }
 impl ::std::default::Default for drmHashEntry {
     fn default() -> drmHashEntry { unsafe { ::std::mem::zeroed() } }
@@ -455,15 +455,15 @@ impl ::std::default::Default for drmHashEntry {
 
 #[repr(C)]
 pub struct drmVersion {
-    version_major:      c_int,          /**< Major version */
-    version_minor:      c_int,          /**< Minor version */
-    version_patchlevel: c_int,          /**< Patch level */
-    name_len:           c_int,          /**< Length of name buffer */
-    name:               *mut c_char,    /**< Name of driver */
-    date_len:           c_int,          /**< Length of date buffer */
-    date:               *mut c_char,    /**< User-space buffer to hold date */
-    desc_len:           c_int,          /**< Length of desc buffer */
-    desc:               *mut c_char
+    pub version_major:      c_int,          /**< Major version */
+    pub version_minor:      c_int,          /**< Minor version */
+    pub version_patchlevel: c_int,          /**< Patch level */
+    pub name_len:           c_int,          /**< Length of name buffer */
+    pub name:               *mut c_char,    /**< Name of driver */
+    pub date_len:           c_int,          /**< Length of date buffer */
+    pub date:               *mut c_char,    /**< User-space buffer to hold date */
+    pub desc_len:           c_int,          /**< Length of desc buffer */
+    pub desc:               *mut c_char
 }
 impl ::std::default::Default for drmVersion {
     fn default() -> drmVersion { unsafe { ::std::mem::zeroed() } }
@@ -473,10 +473,10 @@ pub type drmVersionPtr = *mut drmVersion;
 
 #[repr(C)]
 pub struct drmSetVersion {
-	drm_di_major: c_int,
-	drm_di_minor: c_int,
-	drm_dd_major: c_int,
-	drm_dd_minor: c_int
+	pub drm_di_major: c_int,
+	pub drm_di_minor: c_int,
+	pub drm_dd_major: c_int,
+	pub drm_dd_minor: c_int
 }
 impl ::std::default::Default for drmSetVersion {
     fn default() -> drmSetVersion { unsafe { ::std::mem::zeroed() } }
@@ -486,15 +486,15 @@ pub type drmSetVersionPtr = *mut drmSetVersion;
 
 #[repr(C)]
 pub struct drmStatsTData {
-    value: c_ulong,
-    long_format: *const c_char,
-    long_name: *const c_char,
-    rate_format: *const c_char,
-    rate_name: *const c_char,
-    isvalue: c_int,
-    mult_names: *const c_char,
-    mult: c_int,
-    verbose: c_int
+    pub value: c_ulong,
+    pub long_format: *const c_char,
+    pub long_name: *const c_char,
+    pub rate_format: *const c_char,
+    pub rate_name: *const c_char,
+    pub isvalue: c_int,
+    pub mult_names: *const c_char,
+    pub mult: c_int,
+    pub verbose: c_int
 }
 impl ::std::default::Default for drmStatsTData {
     fn default() -> drmStatsTData { unsafe { ::std::mem::zeroed() } }
@@ -503,8 +503,8 @@ impl ::std::default::Default for drmStatsTData {
 
 #[repr(C)]
 pub struct drmStatsT {
-    count: c_ulong,
-    data: *mut [drmStatsTData; 15]
+    pub count: c_ulong,
+    pub data: *mut [drmStatsTData; 15]
 }
 impl ::std::default::Default for drmStatsT {
     fn default() -> drmStatsT { unsafe { ::std::mem::zeroed() } }
@@ -528,9 +528,9 @@ pub const DRM_BUS_PCI : u8 = 0;
 #[link(name = "drm")]
 #[allow(dead_code)]
 extern {
-    fn drmIoctl(fc: c_int, request: c_ulong, arg: *mut c_void) -> c_int;
-    fn drmGetHashTable() -> *mut c_void;
-    fn drmGetEntry(fd: c_int) -> *mut drmHashEntry;
+    pub fn drmIoctl(fc: c_int, request: c_ulong, arg: *mut c_void) -> c_int;
+    pub fn drmGetHashTable() -> *mut c_void;
+    pub fn drmGetEntry(fd: c_int) -> *mut drmHashEntry;
     /* General user-level programmer's API: unprivileged */
     pub fn drmAvailable() -> c_int;
     pub fn drmOpen(name: *const c_char, busid: *const c_char) -> c_int;

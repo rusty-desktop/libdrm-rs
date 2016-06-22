@@ -1,3 +1,5 @@
+#[macro_use]
+extern crate ioctl;
 extern crate core;
 extern crate libc;
 extern crate byteorder;
