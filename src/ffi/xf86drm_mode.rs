@@ -24,8 +24,9 @@
  */
 
 use libc::*;
-use drm::*;
-use drm_mode::*;
+
+use ffi::drm::*;
+use ffi::drm_mode::*;
 
 /*
  * This is the interface for modesetting for drm.
@@ -104,22 +105,22 @@ pub const DRM_MODE_FEATURE_DIRTYFB: c_int = 1;
 
 #[repr(C)]
 pub struct drmModeRes {
-	count_fbs: c_int,
-	fbs: *mut uint32_t,
+	pub count_fbs: c_int,
+	pub fbs: *mut uint32_t,
 
-	count_crtcs: c_int,
-	crtcs: *mut uint32_t,
+	pub count_crtcs: c_int,
+	pub crtcs: *mut uint32_t,
 
-	count_connectors: c_int,
-	connectors: *mut uint32_t,
+	pub count_connectors: c_int,
+	pub connectors: *mut uint32_t,
 
-	count_encoders: c_int,
-	encoders: *mut uint32_t,
+	pub count_encoders: c_int,
+	pub encoders: *mut uint32_t,
 
-	min_width: uint32_t,
-    max_width: uint32_t,
-    min_height: uint32_t,
-    max_height: uint32_t
+	pub min_width: uint32_t,
+    pub max_width: uint32_t,
+    pub min_height: uint32_t,
+    pub max_height: uint32_t
 }
 impl ::std::default::Default for drmModeRes {
     fn default() -> drmModeRes { unsafe { ::std::mem::zeroed() } }

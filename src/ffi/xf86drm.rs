@@ -26,8 +26,9 @@
 
 use libc::*;
 use byteorder::{ByteOrder, NativeEndian};
-use drm::*;
-use util::VolatileCell;
+
+use ffi::drm::*;
+use ffi::util::VolatileCell;
 
 pub type va_list = c_void;
 
