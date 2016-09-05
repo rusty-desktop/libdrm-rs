@@ -11,3 +11,7 @@ readme = "README.md"
 [dependencies]
 libc = "0.2.12"
 byteorder = "0.5.3"
+
+[lib]
+name = "drm"
+path = "src/lib.rs"
