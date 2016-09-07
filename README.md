@@ -14,8 +14,7 @@ suggestions, let me know.
 The purpose of this crate is to provide low-level bindings that map directly to
 the libraries in order to be able to maintain compatibility as new versions of
 libdrm appear. I plan to work on safer, more idiomatic, higher level constructs
-once I've tested this enough, but those abstractions will appear on another
-crate. This will remain as close to 1:1 map as possible.
+once I've tested this enough but, for the moment, this will remain as close to 1:1 map as possible.
 
 This was hand-made as bindgen had issues with the files and I didn't test other
 generators.
