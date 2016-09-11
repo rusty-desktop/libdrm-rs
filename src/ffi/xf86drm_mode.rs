@@ -213,16 +213,16 @@ pub type drmModePropertyPtr = *mut drmModePropertyRes;
 
 #[repr(C)]
 pub struct drmModeCrtc {
-	crtc_id: uint32_t,
-	buffer_id: uint32_t, /**< FB id to connect to 0 = disconnect */
+	pub crtc_id: uint32_t,
+	pub buffer_id: uint32_t, /**< FB id to connect to 0 = disconnect */
 
-	x: uint32_t,
-    y: uint32_t, /**< Position on the framebuffer */
-	width: uint32_t,
-    height: uint32_t,
-	mode_valid: c_int,
-	mode: drmModeModeInfo,
-	gamma_size: c_int
+	pub x: uint32_t,
+    pub y: uint32_t, /**< Position on the framebuffer */
+	pub width: uint32_t,
+    pub height: uint32_t,
+	pub mode_valid: c_int,
+	pub mode: drmModeModeInfo,
+	pub gamma_size: c_int
 }
 impl ::std::default::Default for drmModeCrtc {
     fn default() -> drmModeCrtc { unsafe { ::std::mem::zeroed() } }
@@ -232,11 +232,11 @@ pub type drmModeCrtcPtr = *mut drmModeCrtc;
 
 #[repr(C)]
 pub struct drmModeEncoder {
-	encoder_id: uint32_t,
-	encoder_type: uint32_t,
-	crtc_id: uint32_t,
-	possible_crtcs: uint32_t,
-	possible_clones: uint32_t
+	pub encoder_id: uint32_t,
+	pub encoder_type: uint32_t,
+	pub crtc_id: uint32_t,
+	pub possible_crtcs: uint32_t,
+	pub possible_clones: uint32_t
 }
 impl ::std::default::Default for drmModeEncoder {
     fn default() -> drmModeEncoder { unsafe { ::std::mem::zeroed() } }
@@ -263,24 +263,24 @@ pub enum drmModeSubPixel {
 
 #[repr(C)]
 pub struct drmModeConnector {
-	connector_id: uint32_t,
-	encoder_id: uint32_t, /**< Encoder currently connected to */
-	connector_type: uint32_t,
-	connector_type_id: uint32_t,
-	connection: drmModeConnection,
-	mmWidth: uint32_t,
-    mmHeight: uint32_t, /**< HxW in millimeters */
-	subpixel: drmModeSubPixel,
+	pub connector_id: uint32_t,
+	pub encoder_id: uint32_t, /**< Encoder currently connected to */
+	pub connector_type: uint32_t,
+	pub connector_type_id: uint32_t,
+	pub connection: drmModeConnection,
+	pub mmWidth: uint32_t,
+    pub mmHeight: uint32_t, /**< HxW in millimeters */
+	pub subpixel: drmModeSubPixel,
 
-	count_modes: c_int,
-	modes: drmModeModeInfoPtr,
+	pub count_modes: c_int,
+	pub modes: drmModeModeInfoPtr,
 
-	count_props: c_int,
-	props: *mut uint32_t, /**< List of property ids */
-	prop_values: *mut uint64_t, /**< List of property values */
+	pub count_props: c_int,
+	pub props: *mut uint32_t, /**< List of property ids */
+	pub prop_values: *mut uint64_t, /**< List of property values */
 
-	count_encoders: c_int,
-	encoders: *mut uint32_t
+	pub count_encoders: c_int,
+	pub encoders: *mut uint32_t
 }
 impl ::std::default::Default for drmModeConnector {
     fn default() -> drmModeConnector { unsafe { ::std::mem::zeroed() } }
