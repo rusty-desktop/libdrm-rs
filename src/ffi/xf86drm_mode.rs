@@ -105,19 +105,19 @@ pub const DRM_MODE_FEATURE_DIRTYFB: c_int = 1;
 
 #[repr(C)]
 pub struct drmModeRes {
-	pub count_fbs: c_int,
-	pub fbs: *mut uint32_t,
+    pub count_fbs: c_int,
+    pub fbs: *mut uint32_t,
 
-	pub count_crtcs: c_int,
-	pub crtcs: *mut uint32_t,
+    pub count_crtcs: c_int,
+    pub crtcs: *mut uint32_t,
 
-	pub count_connectors: c_int,
-	pub connectors: *mut uint32_t,
+    pub count_connectors: c_int,
+    pub connectors: *mut uint32_t,
 
-	pub count_encoders: c_int,
-	pub encoders: *mut uint32_t,
+    pub count_encoders: c_int,
+    pub encoders: *mut uint32_t,
 
-	pub min_width: uint32_t,
+    pub min_width: uint32_t,
     pub max_width: uint32_t,
     pub min_height: uint32_t,
     pub max_height: uint32_t
@@ -129,28 +129,29 @@ impl ::std::default::Default for drmModeRes {
 pub type drmModeResPtr = *mut drmModeRes;
 
 #[repr(C)]
+#[derive(Clone)]
 pub struct drmModeModeInfo {
-	clock: uint32_t,
-	hdisplay: uint16_t,
-    hsync_start: uint16_t,
-    hsync_end: uint16_t,
-    htotal: uint16_t,
-    hskew: uint16_t,
-	vdisplay: uint16_t,
-    vsync_start: uint16_t,
-    vsync_end: uint16_t,
-    vtotal: uint16_t,
-    vscan: uint16_t,
-	vrefresh: uint32_t,
-	flags: uint32_t,
-	mode_type: uint32_t,
-	name: [c_char; DRM_DISPLAY_MODE_LEN as usize]
+    pub clock: uint32_t,
+    pub hdisplay: uint16_t,
+    pub hsync_start: uint16_t,
+    pub hsync_end: uint16_t,
+    pub htotal: uint16_t,
+    pub hskew: uint16_t,
+    pub vdisplay: uint16_t,
+    pub vsync_start: uint16_t,
+    pub vsync_end: uint16_t,
+    pub vtotal: uint16_t,
+    pub vscan: uint16_t,
+    pub vrefresh: uint32_t,
+    pub flags: uint32_t,
+    pub mode_type: uint32_t,
+    pub name: [c_char; DRM_DISPLAY_MODE_LEN as usize]
 }
 impl ::std::default::Default for drmModeModeInfo {
     fn default() -> drmModeModeInfo { unsafe { ::std::mem::zeroed() } }
 }
 
-pub type drmModeModeInfoPtr = *mut drmModeModeInfo;
+pub type drmModeModeInfoPtr = *const drmModeModeInfo;
 
 #[repr(C)]
 pub struct drmModeFB {
@@ -426,7 +427,7 @@ extern {
     * Set the mode on a crtc crtcId with the given mode modeId.
     */
     pub fn drmModeSetCrtc(fd: c_int, crtcId: uint32_t, bufferId: uint32_t,
-        x: uint32_t, y: uint32_t, connectors: *mut uint32_t, count: c_int,
+        x: uint32_t, y: uint32_t, connectors: *const uint32_t, count: c_int,
         mode: drmModeModeInfoPtr) -> c_int;
 
     /*
@@ -500,7 +501,7 @@ extern {
     pub fn drmModeCrtcGetGamma(fd: c_int, crtc_id: uint32_t, size: uint32_t,
         red: *mut uint16_t, green: *mut uint16_t, blue: *mut uint16_t) -> c_int;
     pub fn drmModePageFlip(fd: c_int, crtc_id: uint32_t, fb_id: uint32_t,
-        flags: uint32_t, user_data: *mut c_void) -> c_int;
+        flags: uint32_t, user_data: *const c_void) -> c_int;
 
     pub fn drmModeGetPlaneResources(fd: c_int) -> drmModePlaneResPtr;
     pub fn drmModeGetPlane(fd: c_int, plane_id: uint32_t) -> drmModePlanePtr;

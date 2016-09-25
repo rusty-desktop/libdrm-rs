@@ -19,6 +19,8 @@ use std::os::unix::io;
 
 use ffi;
 
+pub use event_handler::{EventContext, handle_event};
+
 #[repr(u64)]
 pub enum Capability {
     DumbBuffer = ffi::drm::DRM_CAP_DUMB_BUFFER,
@@ -36,9 +38,9 @@ pub enum Capability {
 /// Get devices capability.
 ///
 /// Counterpart for `drmGetCap`.
-pub fn get_cap(fd: &io::RawFd, cap: Capability) -> Result<u64, i32> {
+pub fn get_cap(fd: io::RawFd, cap: Capability) -> Result<u64, i32> {
     let mut value = 0;
-    let result = unsafe { ffi::xf86drm::drmGetCap(*fd, cap as u64, &mut value) };
+    let result = unsafe { ffi::xf86drm::drmGetCap(fd, cap as u64, &mut value) };
 
     if result == 0 { Ok(value) } else { Err(result) }
 }

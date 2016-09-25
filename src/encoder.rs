@@ -31,7 +31,7 @@ pub struct Encoder {
     encoder: ffi::xf86drm_mode::drmModeEncoderPtr,
 }
 
-// General methods
+/// General methods
 impl Encoder {
     /// `Encoder` constructor.
     /// Does not check if passed arguments are valid.
@@ -40,7 +40,7 @@ impl Encoder {
     }
 }
 
-// Getters for original members
+/// Getters for original members
 impl Encoder {
     #[inline]
     pub fn get_encoder_id(&self) -> EncoderId {

@@ -297,27 +297,27 @@ pub type drmDevicePtr = *mut drmDevice;
 
 #[repr(C)]
 pub struct drmEventContext {
-	/* This struct is versioned so we can add more pointers if we
-	 * add more events. */
-	version: c_int,
+    // This struct is versioned so we can add more pointers if we add more events.
+    pub version: c_int,
 
-	vblank_handler: extern fn(fd: c_int,
-			       sequence: c_uint,
-			       tv_sec: c_uint,
-			       tv_usec: c_uint,
-			       user_data: *mut c_void) -> c_void,
+    pub vblank_handler: extern fn(fd: c_int,
+                                  sequence: c_uint,
+                                  tv_sec: c_uint,
+                                  tv_usec: c_uint,
+                                  user_data: *mut c_void),
 
-	page_flip_handler: extern fn(fd: c_int,
-				  sequence: c_uint,
-				  tv_sec: c_uint,
-				  tv_usec: c_uint,
-				  user_data: *mut c_void) -> c_void
+    pub page_flip_handler: extern fn(fd: c_int,
+                                     sequence: c_uint,
+                                     tv_sec: c_uint,
+                                     tv_usec: c_uint,
+                                     user_data: *mut c_void),
 }
+
 impl ::std::default::Default for drmEventContext {
     fn default() -> drmEventContext { unsafe { ::std::mem::zeroed() } }
 }
 
-pub type drmEventContextPtr = *mut drmEventContext;
+pub type drmEventContextPtr = *const drmEventContext;
 
 #[repr(C)]
 pub enum drmVBlankSeqType {
@@ -523,7 +523,7 @@ pub const DRM_NODE_PRIMARY : u8 = 0;
 pub const DRM_NODE_CONTROL : u8 = 1;
 pub const DRM_NODE_RENDER : u8 = 2;
 pub const DRM_NODE_MAX : u8 = 3;
-pub const DRM_EVENT_CONTEXT_VERSION : u8 = 2;
+pub const DRM_EVENT_CONTEXT_VERSION: i32 = 2;
 pub const DRM_BUS_PCI : u8 = 0;
 
 #[link(name = "drm")]

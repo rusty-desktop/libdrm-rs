@@ -20,6 +20,7 @@ use std;
 use ffi;
 use ffi::xf86drm_mode::drmModeConnection;
 use encoder;
+use mode_info;
 
 /// Type of connector id.
 pub type ConnectorId = u32;
@@ -36,6 +37,7 @@ static TYPE_NAMES: [&'static str; 15] = ["Unknown", "VGA", "DVII", "DVID", "DVIA
                                          "HDMIA", "HDMIB", "TV", "eDP"];
 
 /// Enum representing state of connectors connection.
+#[derive(PartialEq)]
 pub enum Connection {
     Connected,
     Disconnected,
@@ -57,7 +59,7 @@ pub struct Connector {
     connector: ffi::xf86drm_mode::drmModeConnectorPtr,
 }
 
-// General methods
+/// General methods
 impl Connector {
     /// `Connector` constructor.
     /// Does not check if passed arguments are valid.
@@ -72,7 +74,7 @@ impl Connector {
     }
 }
 
-// Getters for original members
+/// Getters for original members
 impl Connector {
     #[inline]
     pub fn get_connector_id(&self) -> ConnectorId {
@@ -96,7 +98,7 @@ impl Connector {
     }
 
     #[inline]
-    fn get_connection(&self) -> Connection {
+    pub fn get_connection(&self) -> Connection {
         unsafe {
             match (*self.connector).connection {
                 drmModeConnection::DRM_MODE_CONNECTED => Connection::Connected,
@@ -128,6 +130,18 @@ impl Connector {
     #[inline]
     pub fn get_count_encoders(&self) -> i32 {
         unsafe { (*self.connector).count_encoders }
+    }
+
+    /// Return vector of modes.
+    pub fn get_modes(&self) -> Vec<mode_info::ModeInfo> {
+        let count = self.get_count_modes();
+        let mut vec = Vec::with_capacity(count as usize);
+        for pos in 0..count as isize {
+            vec.push(mode_info::ModeInfo::new(unsafe {
+                (*(*self.connector).modes.offset(pos)).clone()
+            }));
+        }
+        vec
     }
 
     /// Return vector of encoder ids.

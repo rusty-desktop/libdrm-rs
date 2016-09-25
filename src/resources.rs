@@ -26,7 +26,7 @@ pub struct Resources {
     resources: ffi::xf86drm_mode::drmModeResPtr,
 }
 
-// General methods
+/// General methods
 impl Resources {
     /// `Resources` constructor.
     /// Does not check if passed arguments are valid.
@@ -35,7 +35,7 @@ impl Resources {
     }
 }
 
-// Getters for original members
+/// Getters for original members
 impl Resources {
     /// Returns count of frame buffers.
     #[inline]
