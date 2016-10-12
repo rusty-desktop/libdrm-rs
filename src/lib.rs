@@ -7,20 +7,13 @@ extern crate byteorder;
 #[allow(dead_code)]
 pub mod ffi;
 
-#[allow(dead_code)]
-pub mod drm;
-
-#[allow(dead_code)]
-pub mod drm_mode;
-
-#[allow(dead_code)]
 mod crtc;
-
-#[allow(dead_code)]
 mod encoder;
-
-#[allow(dead_code)]
+mod mode_info;
 mod connector;
-
-#[allow(dead_code)]
 mod resources;
+
+mod event_handler;
+
+pub mod drm;
+pub mod drm_mode;
