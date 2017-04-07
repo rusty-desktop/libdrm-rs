@@ -34,6 +34,8 @@ use std::os::unix::io;
 
 use ffi;
 
+pub const DRM_CONTEXT_VERSION: libc::c_int = 2; /**< Desired DRM event context version */
+
 /// Trait for contexts passed to `handle_event`.
 pub trait EventContext {
     fn vblank_handler(&mut self, fd: io::RawFd, sequence: u32, sec: u32, usec: u32, data: i32);
@@ -72,7 +74,7 @@ pub fn handle_event(fd: io::RawFd, context: Box<EventContext>) {
     CONTEXT.with(|s| *s.borrow_mut() = Some(context));
 
     let mut drm_context = ffi::xf86drm::drmEventContext::default();
-    drm_context.version = ffi::xf86drm::DRM_EVENT_CONTEXT_VERSION;
+    drm_context.version = DRM_CONTEXT_VERSION;
     drm_context.vblank_handler = vblank_handler;
     drm_context.page_flip_handler = page_flip_handler;
     unsafe {
