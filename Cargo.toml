@@ -11,7 +11,6 @@ readme = "README.md"
 [dependencies]
 libc = "0.2.16"
 byteorder = "0.5.3"
-ioctl = "0.3.3"
 
 [lib]
 name = "drm"
