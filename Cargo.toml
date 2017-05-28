@@ -1,6 +1,6 @@
 [package]
 name = "drm-rs"
-version = "0.1.2"
+version = "0.1.3"
 authors = ["Alberto Simón <alberto@simon.ph>"]
 description = "(WIP) libdrm bindings to be able to use Kernel Mode Setting on Linux"
 repository = "https://github.com/rust-kms/libdrm-rs"
